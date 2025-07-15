@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="imagem/x-icon" href="./src/assets/favicon.png" />
+    <link rel="stylesheet" href="./src/output.css" />
+    <title>Contatos</title>
+</head>
+
+<body class="bg-orange-200">
+
+    <header class="bg-gray-900">
+        <div class="flex justify-center items-center">
+            <img class="h-60" src="src/assets/logo.png" alt="Logo Checkpoint Blog" />
+        </div>
+    </header>
+
+    <nav class="bg-gray-300 px-2 text-gray-700 flex space-x-3 justify-center">
+        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="index.html">Inicio</a>
+        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="sobre.html">Sobre</a>
+        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="#">Mais Jogados</a>
+        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="contato.html">Contato</a>
+    </nav>
+
+
+
+    <!-- Contatos -->
+
+    <main class="basis-9/12 space-y-2 p-2">
+        <article class="w-full bg-white p-4 space-y-1 rounded shadow">
+            <h2 class="text-lg text-gray-600 font-semibold">Quer entrar em contato conosco?</h2>
+            <p class="text-sm text-gray-400">Manda sua mensagem aqui que em breve será respondida </p>
+
+            <form action="#" method="POST" class="space-y-5 mt-5">
+
+                <!-- Nome -->
+                <div>
+                    <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Seu nome</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500" />
+                </div>
+
+                <!-- Título -->
+                <div>
+                    <label for="titulo" class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
+                    <input type="text" id="titulo" name="titulo" placeholder="Digite seu e-mail"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2  focus:ring-orange-500 focus:border-orange-500" />
+                </div>
+
+                <!-- Conteúdo -->
+                <div>
+                    <label for="mensagem" class="block text-sm font-medium text-gray-700 mb-1">Conteúdo</label>
+                    <textarea id="mensagem" name="mensagem" rows="5" placeholder="Escreva aqui seu conteúdo ou feedback"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 resize-none"></textarea>
+                </div>
+
+                <!-- Botão de envio -->
+                <div>
+                    <button type="submit"
+                        class="w-full bg-orange-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors duration-200">
+                        Enviar
+                    </button>
+                </div>
+            </form>
+
+        </article>
+
+    </main>
+    </section>
+
+    <footer class="bg-orange-500 w-full h-24 items-center justify-center flex text-center">
+        <div class="text-center text-sm">
+            <p class="text-white ">&copy; 2025 CheckPoint Blog. Todos os direitos reservados - Desenvolvido por <a
+                    class="hover:text-gray-700 hover:underline"
+                    href="https://joaomarcello.vercel.app/">Joaomarcello.dev</a></p>
+        </div>
+    </footer>
+</body>
+
+</html>
