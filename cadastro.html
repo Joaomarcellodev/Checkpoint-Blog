@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="imagem/x-icon" href="./src/assets/favicon.png" />
+    <link rel="stylesheet" href="./src/output.css" />
+    <title>Cadastro de games</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-orange-200 min-h-screen flex flex-col">
+
+    <header class="bg-gray-900">
+        <div class="flex justify-center items-center">
+            <img class="h-60" src="src/assets/logo.png" alt="Logo Checkpoint Blog" />
+        </div>
+    </header>
+
+    <nav class="bg-gray-300 px-2 text-gray-700 flex space-x-3 justify-center">
+        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="index.html">Inicio</a>
+        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="sobre.html">Sobre</a>
+        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="maisjogados.html">Mais Jogados</a>
+        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="contato.html">Contato</a>
+    </nav>
+
+
+    <main class="flex-grow container mx-auto p-4 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Adicionar Novo Jogo</h1>
+
+            <form id="gameForm" class="space-y-4">
+                <div>
+                    <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Título do Jogo:</label>
+                    <input type="text" id="title" name="title" required placeholder="Digite o nome do Jogo"
+                        class="shadow appearance-none border  rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500">
+                </div>
+
+                <div>
+                    <label for="subtitle" class="block text-gray-700 text-sm font-bold mb-2">Plataforma que desenvolveu:</label>
+                    <input type="text" id="subtitle" name="subtitle" placeholder="Digite a empresa que desenvolveu"
+                        class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500">
+                </div>
+
+                <div>
+                    <label for="imageUrl" class="block text-gray-700 text-sm font-bold mb-2">URL da Imagem:</label>
+                    <input type="url" id="imageUrl" name="imageUrl" required placeholder="Coloque o link da imagem"
+                        class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500">
+                </div>
+
+                <div>
+                    <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Descrição:</label>
+                    <textarea id="description" name="description" rows="6" required placeholder="Coloque uma breve descrição sobre o jogo"
+                        class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Onde exibir o jogo?</label>
+                    <div class="mt-2 space-y-2">
+                        <label class="inline-flex items-center">
+                            <input type="radio" class="form-radio text-orange-600 rounded-full" name="placement" value="index" checked>
+                            <span class="ml-2 text-gray-700">Página Inicial</span>
+                        </label>
+                        <label class="inline-flex items-center ml-4">
+                            <input type="radio" class="form-radio text-orange-600 rounded-full" name="placement" value="maisjogados">
+                            <span class="ml-2 text-gray-700">Mais Jogados</span>
+                        </label>
+                        <label class="inline-flex items-center ml-4">
+                            <input type="radio" class="form-radio text-orange-600 rounded-full" name="placement" value="outras_indicacoes">
+                            <span class="ml-2 text-gray-700">Outras Indicações</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline w-full transition duration-300 ease-in-out transform hover:scale-105">
+                    Adicionar Jogo
+                </button>
+
+                <div id="statusMessage" class="text-center mt-4 text-sm font-semibold"></div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-orange-500 w-full h-24 items-center justify-center flex text-center">
+        <div class="text-center text-sm">
+            <p class="text-white ">&copy; 2025 CheckPoint Blog. Todos os direitos reservados - Desenvolvido por <a
+                    class="hover:text-gray-700 hover:underline"
+                    href="https://joaomarcello.vercel.app/">Joaomarcello.dev</a></p>
+        </div>
+    </footer>
+
+    <script type="module">
+        // Importa as funções necessárias do Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Variáveis globais para o Firebase (preenchidas pelo ambiente Canvas)
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+
+        let app;
+        let db;
+        let auth;
+        let userId;
+
+        /**
+         * Inicializa o Firebase e autentica o usuário.
+         * Tenta autenticar com um token personalizado se disponível,
+         * caso contrário, autentica anonimamente.
+         */
+        async function initializeFirebase() {
+            try {
+                app = initializeApp(firebaseConfig); // Inicializa o aplicativo Firebase
+                db = getFirestore(app); // Obtém a instância do Firestore
+                auth = getAuth(app); // Obtém a instância de autenticação
+
+                // Tenta fazer login com o token personalizado fornecido pelo ambiente
+                if (typeof __initial_auth_token !== 'undefined') {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    // Se não houver token, faz login anonimamente
+                    await signInAnonymously(auth);
+                }
+                // Define o ID do usuário, usando o UID autenticado ou um UUID aleatório
+                userId = auth.currentUser?.uid || crypto.randomUUID();
+                console.log("Firebase inicializado e usuário autenticado:", userId);
+            } catch (error) {
+                console.error("Erro ao inicializar o Firebase ou autenticar:", error);
+                // Exibe uma mensagem de erro na interface do usuário
+                document.getElementById('statusMessage').textContent = 'Erro ao inicializar o Firebase. Verifique o console.';
+                document.getElementById('statusMessage').classList.add('text-red-500');
+            }
+        }
+
+        // Chama a função de inicialização do Firebase quando o DOM estiver completamente carregado
+        document.addEventListener('DOMContentLoaded', initializeFirebase);
+
+        // Adiciona um listener para o evento de submit do formulário
+        document.getElementById('gameForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Previne o comportamento padrão de recarregar a página
+
+            // Verifica se o Firestore foi inicializado
+            if (!db) {
+                console.error("Firestore não inicializado.");
+                document.getElementById('statusMessage').textContent = 'Erro: Firestore não inicializado. Tente novamente.';
+                document.getElementById('statusMessage').classList.add('text-red-500');
+                return;
+            }
+
+            // Coleta os valores dos campos do formulário
+            const title = document.getElementById('title').value;
+            const subtitle = document.getElementById('subtitle').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+            const description = document.getElementById('description').value;
+            // Obtém o valor do radio button selecionado para 'placement'
+            const placement = document.querySelector('input[name="placement"]:checked').value;
+
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = 'Enviando...';
+            // Remove classes de status anteriores e adiciona a de envio
+            statusMessage.classList.remove('text-red-500', 'text-green-500');
+            statusMessage.classList.add('text-blue-500');
+
+            try {
+                // Define o caminho da coleção no Firestore.
+                // Usamos 'public/data/games' para que os dados sejam acessíveis publicamente.
+                const collectionPath = `artifacts/${appId}/public/data/games`;
+
+                // Adiciona um novo documento à coleção 'games' com os dados do formulário
+                await addDoc(collection(db, collectionPath), {
+                    title,
+                    subtitle,
+                    imageUrl,
+                    description,
+                    placement,
+                    createdAt: new Date() // Adiciona um timestamp para ordenação futura
+                });
+
+                statusMessage.textContent = 'Jogo adicionado com sucesso!';
+                statusMessage.classList.remove('text-blue-500');
+                statusMessage.classList.add('text-green-500');
+                document.getElementById('gameForm').reset(); // Limpa o formulário após o sucesso
+            } catch (e) {
+                console.error("Erro ao adicionar documento: ", e);
+                statusMessage.textContent = 'Erro ao adicionar o jogo: ' + e.message;
+                statusMessage.classList.remove('text-blue-500', 'text-green-500');
+                statusMessage.classList.add('text-red-500');
+            }
+        });
+    </script>
+</body>
+
+</html>
