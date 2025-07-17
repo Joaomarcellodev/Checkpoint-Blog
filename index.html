@@ -1,180 +1,228 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="imagem/x-xicon" href="./src/assets/favicon.png" />
+    <link rel="stylesheet" href="./src/output.css" />
+    <title>Checkpoint Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="imagem/x-icon" href="./src/assets/favicon.png" />
-  <link rel="stylesheet" href="./src/output.css" />
-  <title>Checkpoint Blog</title>
-</head>
-
-<body class="bg-orange-200">
-
-  <header class="bg-gray-900">
-    <div class="flex justify-center items-center">
-      <img class="h-60" src="src/assets/logo.png" alt="Logo Checkpoint Blog" />
-    </div>
-  </header>
-
-  <nav class="bg-gray-300 px-2 text-gray-700 flex space-x-3 justify-center">
-    <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="index.html">Inicio</a>
-    <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="sobre.html">Sobre</a>
-    <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="maisjogados.html">Mais Jogados</a>
-    <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="contato.html">Contato</a>
-  </nav>
-
-  <section class="flex ">
-    <aside class="flex-grow flex-shrink-0 w-20 bg-gray-200 p-2">
-      <h3 class="text-sm text-gray-600">Outras indicações:</h3>
-      <div class="columns-1 space-y-2">
-        <img class="rounded-sm" src="./src/assets/theforest.jpg" alt="Post do the-forest" />
-        <img class="rounded-sm" src="./src/assets/medalofhonor.jpg" alt="Post do medalofhonor" />
-        <img class="rounded-sm" src="./src/assets/gta.jpg" alt="Post do gta" />
-        <img class="rounded-sm" src="./src/assets/lol.jpg" alt="Post do lol" />
+  <body class="bg-orange-200">
+    <header class="bg-gray-900">
+      <div class="flex justify-center items-center">
+        <img
+          class="h-60"
+          src="src/assets/logo.png"
+          alt="Logo Checkpoint Blog"
+        />
       </div>
-    </aside>
+    </header>
 
-    <!-- Good of War-->
+    <nav class="bg-gray-300 px-2 text-gray-700 flex space-x-3 justify-center">
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="index.html"
+        >Inicio</a
+      >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="sobre.html"
+        >Sobre</a
+      >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="maisjogados.html"
+        >Mais Jogados</a
+      >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="contato.html"
+        >Contato</a
+      >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="dashboard.html"
+        >Dashboard</a
+      >
+    </nav>
 
-    <main class="basis-9/12 space-y-2 p-2">
-      <article class="w-full bg-white p-4 space-y-1 rounded shadow">
-        <h2 class="text-lg text-gray-600 font-semibold">God of War</h2>
-        <p class="text-sm text-gray-400">Sony Interactive Entertainment</p>
+    <section class="flex">
+      <aside class="flex-grow flex-shrink-0 w-20 bg-gray-200 p-2">
+        <h3 class="text-sm text-gray-600">Outras indicações:</h3>
+        <div id="outrasIndicacoesContainer" class="columns-1 space-y-2"></div>
+      </aside>
 
-        <div class="flex justify-center items-center">
-          <img class="rounded-sm py-2" src="./src/assets/God-of-War.webp" alt="Post do God-of-War" />
+      <main id="mainContent" class="basis-9/12 space-y-2 p-2">
+        <div id="loadingMessage" class="text-center text-gray-600">
+          Carregando jogos...
         </div>
+        <div id="errorMessage" class="text-center text-red-500 hidden">
+          Erro ao carregar jogos.
+        </div>
+        <div id="noGamesMessage" class="text-center text-gray-500 hidden">
+          Nenhum jogo encontrado para esta seção.
+        </div>
+      </main>
+    </section>
 
-        <p class="pb-2 text-sm text-justify">
-          O God of War é uma jornada épica de batalhas brutais, mitologia
-          envolvente e narrativa intensa. Com gráficos impressionantes e uma
-          jogabilidade fluida, ele mergulha o jogador em um mundo repleto de
-          desafios, deuses poderosos e combates eletrizantes. Uma experiência
-          cinematográfica que combina ação visceral com uma história
-          emocionante e memorável! 🔥⚔️
+    <footer
+      class="bg-orange-500 w-full h-24 items-center justify-center flex text-center"
+    >
+      <div class="text-center text-sm">
+        <p class="text-white">
+          &copy; 2025 CheckPoint Blog. Todos os direitos reservados -
+          Desenvolvido por
+          <a
+            class="hover:text-gray-700 hover:underline"
+            href="https://joaomarcello.vercel.app/"
+            >Joaomarcello.dev</a
+          >
         </p>
+      </div>
+    </footer>
 
-        <div class="mt-5">
-          <a href="game01.html"
-            class="bg-orange-500 text-white py-2 px-3 rounded hover: shadow-lg hover:shadow-orange-300 transition duration-100 ease-in-out">
-            Continue Lendo
-          </a>
-        </div>
-      </article>
+    <script type="module">
+      // Importações do Firebase SDK
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      // CORREÇÃO AQUI: getAuth e signInAnonymously são importados de firebase-auth.js
+      import {
+        getAuth,
+        signInAnonymously,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getFirestore,
+        collection,
+        query,
+        where,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-      <!-- Delta Force -->
+      // SUAS CREDENCIAIS DO FIREBASE - COPIE E COLE DO SEU ARQUIVO cadastro.html AQUI!
+      const firebaseConfig = {
+        apiKey: "AIzaSyBKt0S9F5DeZxZOPnLMx3x8VQJBx9Zbn-E",
+        authDomain: "checkpoint-blog-781dd.firebaseapp.com",
+        projectId: "checkpoint-blog-781dd",
+        storageBucket: "checkpoint-blog-781dd.firebasestorage.app",
+        messagingSenderId: "719291913960",
+        appId: "1:719291913960:web:a222f2ad700d773c359b5d",
+      };
 
-      <article class="w-full bg-white p-4 space-y-1 rounded shadow">
-        <h2 class="text-lg text-gray-600 font-semibold">Delta Force</h2>
-        <p class="text-sm text-gray-400">NovaLogic</p>
+      // Inicializa o Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const auth = getAuth(app); // Inicializa a autenticação
+      const appId = firebaseConfig.appId; // Pega o appId da sua configuração
 
-        <div class="flex justify-center items-center">
-          <img class="rounded-sm py-2" src="./src/assets/deltaforce.webp" alt="Post do DeltaForce" />
-        </div>
+      // Elementos HTML onde os jogos serão exibidos
+      const outrasIndicacoesContainer = document.getElementById(
+        "outrasIndicacoesContainer"
+      );
+      const mainContent = document.getElementById("mainContent");
+      const loadingMessage = document.getElementById("loadingMessage");
+      const errorMessage = document.getElementById("errorMessage");
+      const noGamesMessage = document.getElementById("noGamesMessage");
 
-        <p class="pb-2 text-sm text-justify">
-          Entre na pele de um soldado de elite da unidade mais temida das
-          forças armadas: a Delta Force. Neste jogo de tiro tático em primeira
-          pessoa, cada missão é um teste de precisão, estratégia e coragem.
-          Seja infiltrando bases inimigas, resgatando reféns ou neutralizando
-          ameaças globais, você estará no centro da ação — sem margem para
-          erro. Com mapas extensos, combates realistas e uma atmosfera
-          imersiva, Delta Force exige mais do que mira certeira: é preciso
-          pensar como um verdadeiro operador de elite. Trabalhe em equipe, use
-          o ambiente a seu favor e execute manobras precisas para garantir o
-          sucesso da missão. Prepare-se. A guerra silenciosa começou — e você
-          é a primeira linha de defesa.
-        </p>
+      async function loadGames() {
+        loadingMessage.classList.remove("hidden"); // Mostra a mensagem de carregamento
+        errorMessage.classList.add("hidden"); // Esconde a mensagem de erro
+        noGamesMessage.classList.add("hidden"); // Esconde a mensagem de "nenhum jogo"
 
-        <div class="mt-5">
-          <a href="game02.html"
-            class="bg-orange-500 text-white py-2 px-3 rounded hover: shadow-lg hover:shadow-orange-300 transition duration-100 ease-in-out">
-            Continue Lendo
-          </a>
-        </div>
-      </article>
+        // Limpa os containers antes de adicionar novos itens
+        outrasIndicacoesContainer.innerHTML = "";
+        mainContent.innerHTML = ""; // Limpa o conteúdo principal, exceto as mensagens de status (se for o caso)
 
-      <!-- Age of empires III-->
+        try {
+          // PASSO CRÍTICO: Autentica anonimamente antes de tentar ler os dados
+          // Isso é necessário porque suas regras do Firestore exigem autenticação (request.auth != null)
+          await signInAnonymously(auth);
+          console.log("Usuário autenticado anonimamente para leitura.");
 
-      <article class="w-full bg-white p-4 space-y-1 rounded shadow">
-        <h2 class="text-lg text-gray-600 font-semibold">
-          Age of Empires III
-        </h2>
-        <p class="text-sm text-gray-400">Ensemble Studios</p>
+          const collectionPath = `artifacts/${appId}/public/data/games`;
+          const q = collection(db, collectionPath); // Cria uma referência para a coleção
 
-        <div class="flex justify-center items-center">
-          <img class="rounded-sm py-2" src="./src/assets/Age-of-Empires-III.jpg" alt="Post do AEO3" />
-        </div>
+          const querySnapshot = await getDocs(q); // Busca todos os documentos na coleção
 
-        <p class="pb-2 text-sm text-justify">
-          Age of Empires III te transporta para a era das grandes descobertas
-          e das batalhas épicas entre impérios em expansão. Neste clássico de
-          estratégia em tempo real, você assume o comando de potências
-          europeias e lidera sua civilização rumo à glória durante a
-          colonização das Américas. Construa cidades, desenvolva tecnologias,
-          gerencie recursos e forme exércitos poderosos para dominar seus
-          inimigos. Cada decisão molda o destino do seu império — da
-          diplomacia aos campos de batalha. Com gráficos impressionantes,
-          trilha sonora cinematográfica e uma jogabilidade profunda, Age of
-          Empires III é um convite irresistível para estrategistas de todas as
-          eras. Reviva a história. Reescreva o mundo. O seu império começa
-          agora.
-        </p>
+          let gamesLoadedCount = 0; // Contador para saber se algum jogo foi carregado
 
-        <div class="mt-5">
-          <a href="game03.html"
-            class="bg-orange-500 text-white py-2 px-3 rounded hover: shadow-lg hover:shadow-orange-300 transition duration-100 ease-in-out">
-            Continue Lendo
-          </a>
-        </div>
-      </article>
+          // Esconde as mensagens iniciais e prepara para exibir resultados
+          loadingMessage.classList.add("hidden");
+          noGamesMessage.classList.add("hidden");
+          errorMessage.classList.add("hidden");
 
-      <!-- Nfs heat-->
+          if (querySnapshot.empty) {
+            noGamesMessage.classList.remove("hidden");
+            return;
+          }
 
-      <article class="w-full bg-white p-4 space-y-1 rounded shadow">
-        <h2 class="text-lg text-gray-600 font-semibold">
-          Need for Speed Heat
-        </h2>
-        <p class="text-sm text-gray-400">
-          Ghost Games
-        </p>
+          querySnapshot.forEach((doc) => {
+            const game = doc.data();
+            const gameId = doc.id; // ID do documento no Firestore, útil para links futuros
 
-        <div class="flex justify-center items-center">
-          <img class="rounded-sm py-2" src="./src/assets/need-speed-heat_.webp" alt="Post do Nfs heat " />
-        </div>
+            if (game.placement === "index") {
+              const article = document.createElement("article");
+              article.className =
+                "w-full bg-white p-4 space-y-1 rounded shadow";
+              article.innerHTML = `
+              <h2 class="text-lg text-gray-600 font-semibold">${
+                game.title || ""
+              }</h2>
+              <p class="text-sm text-gray-400">${game.subtitle || ""}</p>
+              <div class="flex justify-center items-center">
+                <img class="rounded-sm py-2" src="${
+                  game.imageUrl || ""
+                }" alt="Imagem do jogo ${game.title || "Sem Título"}" />
+              </div>
+              <p class="pb-2 text-sm text-justify">${game.description || ""}</p>
+              <div class="mt-5">
+                <a href="${
+                  game.destinationUrl || "#"
+                }" class="bg-orange-500 text-white py-2 px-3 rounded hover: shadow-lg hover:shadow-orange-300 transition duration-100 ease-in-out">
+                  Continue Lendo
+                </a>
+              </div>
+            `;
+              mainContent.appendChild(article);
+              gamesLoadedCount++;
+            } else if (game.placement === "outras_indicacoes") {
+              // Cria o elemento <a> (âncora) para o link
+              const link = document.createElement("a");
+              // Define o href para o destinationUrl do jogo, se existir.
+              // Usa '#' como fallback se a URL não estiver definida (o que não deveria ocorrer com a validação do cadastro).
+              link.href = game.destinationUrl ? game.destinationUrl : "#";
+              link.target = "_blank"; // Opcional: Abre o link em uma nova aba
+              link.rel = "noopener noreferrer"; // Boa prática para links com target="_blank"
 
-        <p class="pb-2 text-sm text-justify">
-          Em Need for Speed Heat, velocidade é só o começo. Durante o dia,
-          participe de corridas oficiais no Speedhunter Showdown para ganhar
-          dinheiro e turbinar sua máquina. Mas é à noite que a verdadeira
-          emoção começa: corridas ilegais tomam as ruas de Palm City, e a
-          polícia não está pra brincadeira. Personalize carros, desafie rivais
-          e fuja da força policial corrupta que domina as madrugadas. Com
-          gráficos incríveis, trilha sonora eletrizante e um sistema de
-          progressão viciante, NFS Heat entrega ação sem limites para quem
-          vive no limite. Corra. Fuja. Vença. O asfalto é seu campo de
-          batalha.
-        </p>
+              // Cria a imagem
+              const img = document.createElement("img");
+              img.className = "rounded-sm";
+              img.src = game.imageUrl || ""; // Adiciona fallback para string vazia
+              img.alt = `Outra indicação: ${game.title || "Sem Título"}`; // Usa título para alt, com fallback
 
+              // Adiciona a imagem dentro do link
+              link.appendChild(img);
 
-        <div class="mt-5">
-          <a href="game04.html"
-            class="bg-orange-500 text-white py-2 px-3 rounded hover: shadow-lg hover:shadow-orange-300 transition duration-100 ease-in-out">
-            Continue Lendo
-          </a>
-        </div>
+              // Adiciona o link (com a imagem dentro) ao container de Outras Indicações
+              outrasIndicacoesContainer.appendChild(link);
+              gamesLoadedCount++;
+            }
+          });
 
-      </article>
-    </main>
-  </section>
+          // Se nenhum jogo foi encontrado para NENHUMA das seções
+          if (gamesLoadedCount === 0) {
+            noGamesMessage.classList.remove("hidden");
+          }
+        } catch (error) {
+          console.error("Erro ao carregar jogos:", error);
+          errorMessage.classList.remove("hidden"); // Mostra a mensagem de erro
+        } finally {
+          loadingMessage.classList.add("hidden"); // Garante que a mensagem de carregamento seja sempre escondida no final
+        }
+      }
 
-  <footer class="bg-orange-500 w-full h-24 items-center justify-center flex text-center">
-    <div class="text-center text-sm">
-      <p class="text-white ">&copy; 2025 CheckPoint Blog. Todos os direitos reservados - Desenvolvido por <a
-          class="hover:text-gray-700 hover:underline" href="https://joaomarcello.vercel.app/">Joaomarcello.dev</a></p>
-    </div>
-  </footer>
-</body>
-
+      // Carrega os jogos quando a página estiver totalmente carregada
+      document.addEventListener("DOMContentLoaded", loadGames);
+    </script>
+  </body>
 </html>

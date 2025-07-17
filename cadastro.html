@@ -6,7 +6,6 @@
     <link rel="icon" type="imagem/x-icon" href="./src/assets/favicon.png" />
     <link rel="stylesheet" href="./src/output.css" />
     <title>Cadastro de games</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
@@ -122,6 +121,21 @@
           </div>
 
           <div>
+            <label
+              for="destinationUrl"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >URL da Página de Destino (Opcional para Outras Indicações):</label
+            >
+            <input
+              type="url"
+              id="destinationUrl"
+              name="destinationUrl"
+              placeholder="Ex: https://seublog.com/detalhes-do-jogo"
+              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+            />
+          </div>
+
+          <div>
             <label class="block text-gray-700 text-sm font-bold mb-2"
               >Onde exibir o jogo?</label
             >
@@ -191,20 +205,18 @@
     <script type="module">
       // Importe as funções necessárias do Firebase SDK
       import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-      // LINHA CORRIGIDA/ADICIONADA: Importe getAuth, signInAnonymously e signInWithCustomToken para autenticação
       import {
         getAuth,
         signInAnonymously,
         signInWithCustomToken,
       } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-      // LINHA CORRIGIDA/ADICIONADA: Importe getFirestore, collection e addDoc para o Firestore
       import {
         getFirestore,
         collection,
         addDoc,
       } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-      // Sua configuração do aplicativo web Firebase (AGORA COM SUAS CREDENCIAIS REAIS)
+      // SUA CONFIGURAÇÃO DO FIREBASE (USE A SUA REAL!)
       const firebaseConfig = {
         apiKey: "AIzaSyBKt0S9F5DeZxZOPnLMx3x8VQJBx9Zbn-E",
         authDomain: "checkpoint-blog-781dd.firebaseapp.com",
@@ -214,7 +226,7 @@
         appId: "1:719291913960:web:a222f2ad700d773c359b5d",
       };
 
-      // Inicialize o Firebase
+      // Inicializa o Firebase
       const appId = firebaseConfig.appId;
 
       let app;
@@ -224,28 +236,22 @@
 
       /**
        * Inicializa o Firebase e autentica o usuário.
-       * Tenta autenticar com um token personalizado se disponível,
-       * caso contrário, autentica anonimamente.
        */
       async function initializeFirebase() {
         try {
-          app = initializeApp(firebaseConfig); // Inicializa o aplicativo Firebase
-          db = getFirestore(app); // Obtém a instância do Firestore
-          auth = getAuth(app); // Obtém a instância de autenticação
+          app = initializeApp(firebaseConfig);
+          db = getFirestore(app);
+          auth = getAuth(app);
 
-          // Tenta fazer login com o token personalizado fornecido pelo ambiente
           if (typeof __initial_auth_token !== "undefined") {
             await signInWithCustomToken(auth, __initial_auth_token);
           } else {
-            // Se não houver token, faz login anonimamente
             await signInAnonymously(auth);
           }
-          // Define o ID do usuário, usando o UID autenticado ou um UUID aleatório
           userId = auth.currentUser?.uid || crypto.randomUUID();
           console.log("Firebase inicializado e usuário autenticado:", userId);
         } catch (error) {
           console.error("Erro ao inicializar o Firebase ou autenticar:", error);
-          // Exibe uma mensagem de erro na interface do usuário
           document.getElementById("statusMessage").textContent =
             "Erro ao inicializar o Firebase. Verifique o console.";
           document
@@ -254,16 +260,13 @@
         }
       }
 
-      // Chama a função de inicialização do Firebase quando o DOM estiver completamente carregado
       document.addEventListener("DOMContentLoaded", initializeFirebase);
 
-      // Adiciona um listener para o evento de submit do formulário
       document
         .getElementById("gameForm")
         .addEventListener("submit", async (e) => {
-          e.preventDefault(); // Previne o comportamento padrão de recarregar a página
+          e.preventDefault();
 
-          // Verifica se o Firestore foi inicializado
           if (!db) {
             console.error("Firestore não inicializado.");
             document.getElementById("statusMessage").textContent =
@@ -274,41 +277,78 @@
             return;
           }
 
-          // Coleta os valores dos campos do formulário
           const title = document.getElementById("title").value;
           const subtitle = document.getElementById("subtitle").value;
           const imageUrl = document.getElementById("imageUrl").value;
           const description = document.getElementById("description").value;
-          // Obtém o valor do radio button selecionado para 'placement'
+          // Capture o novo campo destinationUrl
+          const destinationUrl = document.getElementById("destinationUrl").value;
           const placement = document.querySelector(
             'input[name="placement"]:checked'
           ).value;
 
           const statusMessage = document.getElementById("statusMessage");
           statusMessage.textContent = "Enviando...";
-          // Remove classes de status anteriores e adiciona a de envio
           statusMessage.classList.remove("text-red-500", "text-green-500");
           statusMessage.classList.add("text-blue-500");
 
           try {
-            // Define o caminho da coleção no Firestore.
-            // Usamos 'public/data/games' para que os dados sejam acessíveis publicamente.
-            const collectionPath = `artifacts/${appId}/public/data/games`;
-
-            // Adiciona um novo documento à coleção 'games' com os dados do formulário
-            await addDoc(collection(db, collectionPath), {
-              title,
-              subtitle,
-              imageUrl,
-              description,
+            let gameData = {
               placement,
-              createdAt: new Date(), // Adiciona um timestamp para ordenação futura
-            });
+              imageUrl,
+              createdAt: new Date(),
+              // Adiciona o destinationUrl ao gameData.
+              // Ele será salvo como string vazia se não preenchido.
+              destinationUrl: destinationUrl || '', // Salva como string vazia se o campo estiver vazio
+            };
+
+            if (placement === "maisjogados") {
+              gameData.title = title || "";
+              gameData.subtitle = subtitle || "";
+              gameData.description = description || "";
+              // Para "Mais Jogados", a URL de destino é opcional
+            } else if (placement === "outras_indicacoes") {
+              gameData.title = title || ""; // Opcional para alt text
+              gameData.subtitle = subtitle || ""; // Opcional
+              gameData.description = description || ""; // Opcional
+
+              // VALIDAÇÃO ESPECÍFICA: Se for "Outras Indicações", a URL de destino é obrigatória.
+              if (!gameData.destinationUrl) {
+                statusMessage.textContent = "Para 'Outras Indicações', por favor, forneça uma URL de Página de Destino.";
+                statusMessage.classList.remove("text-blue-500", "text-green-500");
+                statusMessage.classList.add("text-red-500");
+                return; // Impede o envio se faltarem campos
+              }
+            } else { // placement === 'index'
+              gameData.title = title;
+              gameData.subtitle = subtitle;
+              gameData.description = description;
+
+              if (
+                !gameData.title ||
+                !gameData.subtitle ||
+                !gameData.description ||
+                !gameData.imageUrl
+              ) {
+                statusMessage.textContent =
+                  "Por favor, preencha Título, Plataforma, Descrição e URL da Imagem para a Página Inicial.";
+                statusMessage.classList.remove(
+                  "text-blue-500",
+                  "text-green-500"
+                );
+                statusMessage.classList.add("text-red-500");
+                return;
+              }
+              // Para "Página Inicial", a URL de destino também é opcional.
+            }
+
+            const collectionPath = `artifacts/${appId}/public/data/games`;
+            await addDoc(collection(db, collectionPath), gameData);
 
             statusMessage.textContent = "Jogo adicionado com sucesso!";
             statusMessage.classList.remove("text-blue-500");
             statusMessage.classList.add("text-green-500");
-            document.getElementById("gameForm").reset(); // Limpa o formulário após o sucesso
+            document.getElementById("gameForm").reset();
           } catch (e) {
             console.error("Erro ao adicionar documento: ", e);
             statusMessage.textContent =
