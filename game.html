@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="imagem/x-xicon" href="./src/assets/favicon.png" />
+    <link rel="stylesheet" href="./src/output.css" />
+    <title id="gamePageTitle">Detalhes do Jogo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-orange-200">
+    <header class="bg-gray-900">
+      <div class="flex justify-center items-center">
+        <img
+          class="h-60"
+          src="src/assets/logo.png"
+          alt="Logo Checkpoint Blog"
+        />
+      </div>
+    </header>
+
+    <nav class="bg-gray-300 px-2 text-gray-700 flex space-x-3 justify-center">
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="index.html"
+        >Inicio</a
+      >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="sobre.html"
+        >Sobre</a
+      >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="maisjogados.html"
+        >Mais Jogados</a
+      >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="contato.html"
+        >Contato</a
+      >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="dashboard.html"
+        >Dashboard</a
+      >
+    </nav>
+
+    <section class="flex justify-content-center">
+      <main
+        id="gameDetailsContent"
+        class="space-y-2 p-2 w-full max-w-4xl mx-auto"
+      >
+        <div id="loadingMessage" class="text-center text-gray-600">
+          Carregando detalhes do jogo...
+        </div>
+        <div id="errorMessage" class="text-center text-red-500 hidden">
+          Erro ao carregar os detalhes do jogo ou jogo não encontrado.
+        </div>
+
+        <article
+          id="gameArticle"
+          class="w-full bg-white p-4 space-y-1 rounded shadow hidden"
+        >
+          <h1 id="gameTitle" class="text-3xl font-bold text-gray-800 mb-2"></h1>
+          <p id="gameSubtitle" class="text-sm text-gray-400 mb-4"></p>
+          <div
+            id="gameImageContainer"
+            class="flex justify-center items-center mb-4"
+          >
+            <img
+              id="gameImage"
+              class="rounded-sm py-2"
+              src=""
+              alt="Imagem do jogo"
+            />
+          </div>
+          <p id="gameDescription" class="pb-2 text-sm text-justify"></p>
+          <div id="gameFullContent" class="prose max-w-none"></div>
+        </article>
+      </main>
+    </section>
+
+    <footer
+      class="bg-orange-500 w-full h-24 items-center justify-center flex text-center mt-auto"
+    >
+      <div class="text-center text-sm">
+        <p class="text-white">
+          &copy; 2025 CheckPoint Blog. Todos os direitos reservados -
+          Desenvolvido por
+          <a
+            class="hover:text-gray-700 hover:underline"
+            href="https://joaomarcello.vercel.app/"
+            >Joaomarcello.dev</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <script type="module">
+      // Importações do Firebase SDK
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getAuth,
+        signInAnonymously,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+      // SUAS CREDENCIAIS DO FIREBASE - COPIE E COLE DO SEU ARQUIVO cadastro.html AQUI!
+      const firebaseConfig = {
+        apiKey: "AIzaSyBKt0S9F5DeZxZOPnLMx3x8VQJBx9Zbn-E",
+        authDomain: "checkpoint-blog-781dd.firebaseapp.com",
+        projectId: "checkpoint-blog-781dd",
+        storageBucket: "checkpoint-blog-781dd.firebasestorage.app",
+        messagingSenderId: "719291913960",
+        appId: "1:719291913960:web:a222f2ad700d773c359b5d",
+      };
+
+      // Inicializa o Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const auth = getAuth(app);
+      const appId = firebaseConfig.appId;
+
+      // Elementos HTML para exibir os detalhes do jogo
+      const gamePageTitle = document.getElementById("gamePageTitle");
+      const loadingMessage = document.getElementById("loadingMessage");
+      const errorMessage = document.getElementById("errorMessage");
+      const gameArticle = document.getElementById("gameArticle");
+      const gameTitle = document.getElementById("gameTitle");
+      const gameSubtitle = document.getElementById("gameSubtitle");
+      const gameImage = document.getElementById("gameImage");
+      const gameDescription = document.getElementById("gameDescription");
+      const gameFullContent = document.getElementById("gameFullContent");
+
+      async function loadGameDetails() {
+        loadingMessage.classList.remove("hidden");
+        errorMessage.classList.add("hidden");
+        gameArticle.classList.add("hidden"); // Esconde o artigo até carregar
+
+        try {
+          await signInAnonymously(auth);
+          console.log("Usuário autenticado anonimamente para leitura do jogo.");
+
+          // Obtém o ID do jogo da URL (ex: game.html?id=SEU_ID_DO_JOGO)
+          const urlParams = new URLSearchParams(window.location.search);
+          const gameId = urlParams.get("id");
+
+          if (!gameId) {
+            errorMessage.textContent = "ID do jogo não fornecido na URL.";
+            errorMessage.classList.remove("hidden");
+            loadingMessage.classList.add("hidden");
+            return;
+          }
+
+          const docPath = `artifacts/${appId}/public/data/games/${gameId}`;
+          const docRef = doc(db, docPath);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const game = docSnap.data();
+
+            gamePageTitle.textContent = `CKB - ${
+              game.title || "Detalhes do Jogo"
+            }`;
+            gameTitle.textContent = game.title || "Título não disponível";
+            gameSubtitle.textContent =
+              game.subtitle || "Plataforma não disponível";
+            gameImage.src = game.imageUrl || "";
+            gameImage.alt = `Imagem do jogo ${game.title || "Sem Título"}`;
+            gameDescription.textContent =
+              game.description || "Descrição curta não disponível.";
+
+            // Injete o conteúdo completo diretamente no div, permitindo HTML
+            gameFullContent.innerHTML =
+              game.fullContent || "Conteúdo detalhado não disponível.";
+
+            gameArticle.classList.remove("hidden"); // Mostra o artigo
+          } else {
+            errorMessage.textContent = "Jogo não encontrado.";
+            errorMessage.classList.remove("hidden");
+          }
+        } catch (error) {
+          console.error("Erro ao carregar detalhes do jogo:", error);
+          errorMessage.textContent = `Erro ao carregar: ${error.message}`;
+          errorMessage.classList.remove("hidden");
+        } finally {
+          loadingMessage.classList.add("hidden");
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", loadGameDetails);
+    </script>
+  </body>
+</html>

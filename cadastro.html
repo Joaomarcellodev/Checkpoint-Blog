@@ -3,10 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="imagem/x-icon" href="./src/assets/favicon.png" />
+    <link rel="icon" type="imagem/x-xicon" href="./src/assets/favicon.png" />
     <link rel="stylesheet" href="./src/output.css" />
     <title>Cadastro de games</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Estilos adicionais para os campos dinâmicos */
+      .content-item {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        position: relative;
+      }
+      .content-item .remove-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: #ef4444;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        padding: 3px 7px;
+        cursor: pointer;
+        font-size: 0.8em;
+      }
+    </style>
   </head>
 
   <body class="bg-orange-200 min-h-screen flex flex-col">
@@ -58,84 +81,6 @@
 
         <form id="gameForm" class="space-y-4">
           <div>
-            <label
-              for="title"
-              class="block text-gray-700 text-sm font-bold mb-2"
-              >Título do Jogo:</label
-            >
-            <input
-              type="text"
-              id="title"
-              name="title"
-              required
-              placeholder="Digite o nome do Jogo"
-              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
-            />
-          </div>
-
-          <div>
-            <label
-              for="subtitle"
-              class="block text-gray-700 text-sm font-bold mb-2"
-              >Plataforma que desenvolveu:</label
-            >
-            <input
-              type="text"
-              id="subtitle"
-              name="subtitle"
-              placeholder="Digite a empresa que desenvolveu"
-              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
-            />
-          </div>
-
-          <div>
-            <label
-              for="imageUrl"
-              class="block text-gray-700 text-sm font-bold mb-2"
-              >URL da Imagem:</label
-            >
-            <input
-              type="url"
-              id="imageUrl"
-              name="imageUrl"
-              required
-              placeholder="Coloque o link da imagem"
-              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
-            />
-          </div>
-
-          <div>
-            <label
-              for="description"
-              class="block text-gray-700 text-sm font-bold mb-2"
-              >Descrição:</label
-            >
-            <textarea
-              id="description"
-              name="description"
-              rows="6"
-              required
-              placeholder="Coloque uma breve descrição sobre o jogo"
-              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
-            ></textarea>
-          </div>
-
-          <div>
-            <label
-              for="destinationUrl"
-              class="block text-gray-700 text-sm font-bold mb-2"
-              >URL da Página de Destino (Opcional para Outras Indicações):</label
-            >
-            <input
-              type="url"
-              id="destinationUrl"
-              name="destinationUrl"
-              placeholder="Ex: https://seublog.com/detalhes-do-jogo"
-              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
-            />
-          </div>
-
-          <div>
             <label class="block text-gray-700 text-sm font-bold mb-2"
               >Onde exibir o jogo?</label
             >
@@ -169,6 +114,108 @@
                 <span class="ml-2 text-gray-700">Outras Indicações</span>
               </label>
             </div>
+          </div>
+
+          <div id="titleField">
+            <label
+              for="title"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Título do Jogo:</label
+            >
+            <input
+              type="text"
+              id="title"
+              name="title"
+              required
+              placeholder="Digite o nome do Jogo"
+              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+            />
+          </div>
+
+          <div id="subtitleField">
+            <label
+              for="subtitle"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Plataforma que desenvolveu:</label
+            >
+            <input
+              type="text"
+              id="subtitle"
+              name="subtitle"
+              required
+              placeholder="Digite a empresa que desenvolveu"
+              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+            />
+          </div>
+
+          <div>
+            <label
+              for="imageUrl"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >URL da Imagem Principal:</label
+            >
+            <input
+              type="url"
+              id="imageUrl"
+              name="imageUrl"
+              required
+              placeholder="Coloque o link da imagem principal do jogo"
+              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+            />
+          </div>
+
+          <div id="descriptionField">
+            <label
+              for="description"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Descrição Curta (para a Página Inicial):</label
+            >
+            <textarea
+              id="description"
+              name="description"
+              rows="4"
+              required
+              placeholder="Coloque uma breve descrição para ser exibida na página inicial."
+              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+            ></textarea>
+          </div>
+
+          <div class="border-t pt-4 mt-4">
+            <h3 class="text-gray-700 text-sm font-bold mb-2">
+              Conteúdo Detalhado do Artigo:
+            </h3>
+            <div id="dynamicContentContainer"></div>
+            <div class="flex space-x-2 mt-4">
+              <button
+                type="button"
+                id="addTextBtn"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-md focus:outline-none focus:shadow-outline transition duration-100 ease-in-out"
+              >
+                Adicionar Bloco de Texto/Título
+              </button>
+              <button
+                type="button"
+                id="addImageBtn"
+                class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-3 rounded-md focus:outline-none focus:shadow-outline transition duration-100 ease-in-out"
+              >
+                Adicionar Imagem
+              </button>
+            </div>
+          </div>
+
+          <div id="destinationUrlField">
+            <label
+              for="destinationUrl"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >URL da Página de Destino (Opcional, para Mais Jogados):</label
+            >
+            <input
+              type="url"
+              id="destinationUrl"
+              name="destinationUrl"
+              placeholder="Ex: https://seublog.com/detalhes-do-jogo"
+              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+            />
           </div>
 
           <button
@@ -214,11 +261,12 @@
         getFirestore,
         collection,
         addDoc,
+        updateDoc, // Importar updateDoc para atualizar o destino
       } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-      // SUA CONFIGURAÇÃO DO FIREBASE (USE A SUA REAL!)
+      // SUAS CREDENCIAIS DO FIREBASE - USE AS SUAS REAIS!
       const firebaseConfig = {
-        apiKey: "AIzaSyBKt0S9F5DeZxZOPnLMx3x8VQJBx9Zbn-E",
+        apiKey: "AIzaSyBKt0S9F5DeZxZOPLw3x8VQJBx9Zbn-E", // Use sua chave real
         authDomain: "checkpoint-blog-781dd.firebaseapp.com",
         projectId: "checkpoint-blog-781dd",
         storageBucket: "checkpoint-blog-781dd.firebasestorage.app",
@@ -260,7 +308,181 @@
         }
       }
 
-      document.addEventListener("DOMContentLoaded", initializeFirebase);
+      // Referências aos elementos para controle de visibilidade
+      const placementRadios = document.querySelectorAll(
+        'input[name="placement"]'
+      );
+      const titleField = document.getElementById("titleField");
+      const subtitleField = document.getElementById("subtitleField");
+      const descriptionField = document.getElementById("descriptionField");
+      const destinationUrlField = document.getElementById(
+        "destinationUrlField"
+      );
+
+      // Referências diretas aos inputs para gerenciar o atributo 'required'
+      const titleInput = document.getElementById("title");
+      const subtitleInput = document.getElementById("subtitle");
+      const descriptionInput = document.getElementById("description");
+      const imageUrlInput = document.getElementById("imageUrl"); // imageUrl é sempre obrigatório
+      const destinationUrlInput = document.getElementById("destinationUrl");
+
+      function toggleInputVisibility() {
+        const selectedPlacement = document.querySelector(
+          'input[name="placement"]:checked'
+        ).value;
+
+        // Função auxiliar para definir visibilidade e atributo 'required'
+        const setFieldVisibilityAndRequired = (
+          fieldElement,
+          inputElement,
+          isVisible,
+          isRequired
+        ) => {
+          if (isVisible) {
+            fieldElement.classList.remove("hidden");
+          } else {
+            fieldElement.classList.add("hidden");
+          }
+          if (isRequired) {
+            inputElement.setAttribute("required", "true");
+          } else {
+            inputElement.removeAttribute("required");
+            // Não limpa o valor se o campo for apenas "não obrigatório" mas ainda visível
+            // inputElement.value = '';
+          }
+          // Sempre limpa o valor se o campo for ocultado
+          if (!isVisible) {
+            inputElement.value = "";
+          }
+        };
+
+        // Lógica baseada na seleção
+        if (selectedPlacement === "index") {
+          setFieldVisibilityAndRequired(titleField, titleInput, true, true);
+          setFieldVisibilityAndRequired(
+            subtitleField,
+            subtitleInput,
+            true,
+            true
+          );
+          setFieldVisibilityAndRequired(
+            descriptionField,
+            descriptionInput,
+            true,
+            true
+          );
+          setFieldVisibilityAndRequired(
+            destinationUrlField,
+            destinationUrlInput,
+            false,
+            false
+          ); // Oculta e não é obrigatório
+          imageUrlInput.setAttribute("required", "true"); // URL da imagem principal é sempre obrigatória para index
+        } else if (selectedPlacement === "maisjogados") {
+          setFieldVisibilityAndRequired(titleField, titleInput, true, false); // Visível, mas não obrigatório
+          setFieldVisibilityAndRequired(
+            subtitleField,
+            subtitleInput,
+            true,
+            false
+          ); // Visível, mas não obrigatório
+          setFieldVisibilityAndRequired(
+            descriptionField,
+            descriptionInput,
+            true,
+            false
+          ); // Visível, mas não obrigatório
+          setFieldVisibilityAndRequired(
+            destinationUrlField,
+            destinationUrlInput,
+            true,
+            false
+          ); // Visível, mas não obrigatório
+          imageUrlInput.setAttribute("required", "true"); // URL da imagem principal é sempre obrigatória para mais jogados
+        } else if (selectedPlacement === "outras_indicacoes") {
+          // Todos os campos de texto/descrição ficam visíveis, mas não obrigatórios
+          setFieldVisibilityAndRequired(titleField, titleInput, true, false);
+          setFieldVisibilityAndRequired(
+            subtitleField,
+            subtitleInput,
+            true,
+            false
+          );
+          setFieldVisibilityAndRequired(
+            descriptionField,
+            descriptionInput,
+            true,
+            false
+          );
+          setFieldVisibilityAndRequired(
+            destinationUrlField,
+            destinationUrlInput,
+            false,
+            false
+          ); // Oculta e não é obrigatório, pois será gerado
+          imageUrlInput.setAttribute("required", "true"); // URL da imagem principal ainda é obrigatória para outras indicações
+        }
+      }
+
+      // Adiciona event listeners aos radio buttons de 'placement'
+      placementRadios.forEach((radio) => {
+        radio.addEventListener("change", toggleInputVisibility);
+      });
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        await initializeFirebase();
+        toggleInputVisibility(); // Define o estado inicial da visibilidade e dos 'required'
+      });
+
+      // Gerenciamento de Conteúdo Dinâmico
+      const dynamicContentContainer = document.getElementById(
+        "dynamicContentContainer"
+      );
+      const addTextBtn = document.getElementById("addTextBtn");
+      const addImageBtn = document.getElementById("addImageBtn");
+
+      // Adiciona um bloco de texto com campo de título opcional
+      addTextBtn.addEventListener("click", () => {
+        const div = document.createElement("div");
+        div.className =
+          "content-item p-3 border rounded-md bg-gray-50 relative";
+        div.innerHTML = `
+              <label class="block text-gray-700 text-sm font-semibold mb-1">Título do Bloco (Opcional):</label>
+              <input 
+                type="text" 
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500 title-content mb-2" 
+                placeholder="Título para este bloco de texto (opcional)">
+              <label class="block text-gray-700 text-sm font-semibold mb-1">Conteúdo do Bloco de Texto:</label>
+              <textarea 
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500 text-area-content" 
+                rows="5" 
+                placeholder="Digite seu texto aqui..."></textarea>
+              <button type="button" class="remove-btn">Remover</button>
+          `;
+        dynamicContentContainer.appendChild(div);
+        div
+          .querySelector(".remove-btn")
+          .addEventListener("click", () => div.remove());
+      });
+
+      // Adiciona um campo de imagem
+      addImageBtn.addEventListener("click", () => {
+        const div = document.createElement("div");
+        div.className =
+          "content-item p-3 border rounded-md bg-gray-50 relative";
+        div.innerHTML = `
+              <label class="block text-gray-700 text-sm font-semibold mb-1">URL da Imagem no Artigo:</label>
+              <input 
+                type="url" 
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500 image-url-content" 
+                placeholder="Cole o link da imagem aqui...">
+              <button type="button" class="remove-btn">Remover</button>
+          `;
+        dynamicContentContainer.appendChild(div);
+        div
+          .querySelector(".remove-btn")
+          .addEventListener("click", () => div.remove());
+      });
 
       document
         .getElementById("gameForm")
@@ -277,12 +499,11 @@
             return;
           }
 
-          const title = document.getElementById("title").value;
-          const subtitle = document.getElementById("subtitle").value;
-          const imageUrl = document.getElementById("imageUrl").value;
-          const description = document.getElementById("description").value;
-          // Capture o novo campo destinationUrl
-          const destinationUrl = document.getElementById("destinationUrl").value;
+          const title = titleInput.value;
+          const subtitle = subtitleInput.value;
+          const imageUrl = imageUrlInput.value;
+          const description = descriptionInput.value;
+          let destinationUrl = destinationUrlInput.value;
           const placement = document.querySelector(
             'input[name="placement"]:checked'
           ).value;
@@ -292,37 +513,94 @@
           statusMessage.classList.remove("text-red-500", "text-green-500");
           statusMessage.classList.add("text-blue-500");
 
+          let fullContentHTML = "";
+          let hasDetailedContent = false;
+
+          const contentItems = dynamicContentContainer.children;
+          for (let i = 0; i < contentItems.length; i++) {
+            const item = contentItems[i];
+            if (item.querySelector(".text-area-content")) {
+              const blockTitle = item
+                .querySelector(".title-content")
+                .value.trim();
+              const text = item
+                .querySelector(".text-area-content")
+                .value.trim();
+
+              if (blockTitle) {
+                fullContentHTML += `<h2 class="text-xl font-semibold mb-2">${blockTitle}</h2>`;
+                hasDetailedContent = true;
+              }
+              if (text) {
+                fullContentHTML += `<p class="mb-4">${text}</p>`;
+                hasDetailedContent = true;
+              }
+            } else if (item.querySelector(".image-url-content")) {
+              const imgUrl = item
+                .querySelector(".image-url-content")
+                .value.trim();
+              if (imgUrl) {
+                fullContentHTML += `<div class="flex justify-center items-center mb-4"><img class="rounded-sm py-2 max-w-full h-auto" src="${imgUrl}" alt="Imagem do Artigo" /></div>`;
+                hasDetailedContent = true;
+              }
+            }
+          }
+
           try {
             let gameData = {
               placement,
               imageUrl,
               createdAt: new Date(),
-              // Adiciona o destinationUrl ao gameData.
-              // Ele será salvo como string vazia se não preenchido.
-              destinationUrl: destinationUrl || '', // Salva como string vazia se o campo estiver vazio
+              fullContent: fullContentHTML,
+              // Garante que title, subtitle, description existam no objeto, mesmo que vazios
+              title: title || "",
+              subtitle: subtitle || "",
+              description: description || "",
             };
 
             if (placement === "maisjogados") {
-              gameData.title = title || "";
-              gameData.subtitle = subtitle || "";
-              gameData.description = description || "";
-              // Para "Mais Jogados", a URL de destino é opcional
+              gameData.destinationUrl = destinationUrl || ""; // Permite URL externa para Mais Jogados
             } else if (placement === "outras_indicacoes") {
-              gameData.title = title || ""; // Opcional para alt text
-              gameData.subtitle = subtitle || ""; // Opcional
-              gameData.description = description || ""; // Opcional
+              // Para "Outras Indicações", o destino será game.html com o ID do documento
+              // O destinationUrl será definido após o addDoc, não aqui.
 
-              // VALIDAÇÃO ESPECÍFICA: Se for "Outras Indicações", a URL de destino é obrigatória.
-              if (!gameData.destinationUrl) {
-                statusMessage.textContent = "Para 'Outras Indicações', por favor, forneça uma URL de Página de Destino.";
-                statusMessage.classList.remove("text-blue-500", "text-green-500");
+              // Validação: fullContent é obrigatório para "Outras Indicações" (agora que leva a game.html)
+              if (!hasDetailedContent) {
+                statusMessage.textContent =
+                  "Para 'Outras Indicações', o Conteúdo Detalhado do Artigo é obrigatório. Por favor, adicione blocos de texto ou imagem.";
+                statusMessage.classList.remove(
+                  "text-blue-500",
+                  "text-green-500"
+                );
                 statusMessage.classList.add("text-red-500");
-                return; // Impede o envio se faltarem campos
+                return;
               }
-            } else { // placement === 'index'
-              gameData.title = title;
-              gameData.subtitle = subtitle;
-              gameData.description = description;
+              // Validação: imageUrl é obrigatória para "Outras Indicações"
+              if (!imageUrl) {
+                statusMessage.textContent =
+                  "Para 'Outras Indicações', a URL da Imagem Principal é obrigatória.";
+                statusMessage.classList.remove(
+                  "text-blue-500",
+                  "text-green-500"
+                );
+                statusMessage.classList.add("text-red-500");
+                return;
+              }
+            } else {
+              // placement === 'index'
+              gameData.destinationUrl = ""; // Para index, não há URL de destino externa
+
+              // Validação: fullContent é obrigatório para jogos da Página Inicial
+              if (!hasDetailedContent) {
+                statusMessage.textContent =
+                  "Para 'Página Inicial', o Conteúdo Detalhado do Jogo é obrigatório. Por favor, adicione blocos de texto ou imagem.";
+                statusMessage.classList.remove(
+                  "text-blue-500",
+                  "text-green-500"
+                );
+                statusMessage.classList.add("text-red-500");
+                return;
+              }
 
               if (
                 !gameData.title ||
@@ -339,16 +617,33 @@
                 statusMessage.classList.add("text-red-500");
                 return;
               }
-              // Para "Página Inicial", a URL de destino também é opcional.
             }
 
             const collectionPath = `artifacts/${appId}/public/data/games`;
-            await addDoc(collection(db, collectionPath), gameData);
+            const docRef = await addDoc(
+              collection(db, collectionPath),
+              gameData
+            );
+            console.log("Documento adicionado com ID: ", docRef.id);
+
+            // Atualiza o destinationUrl para "Outras Indicações" APÓS ter o ID do documento
+            if (placement === "outras_indicacoes") {
+              const gameId = docRef.id;
+              await updateDoc(docRef, {
+                destinationUrl: `game.html?id=${gameId}`,
+              });
+              console.log(
+                "destinationUrl atualizado para game.html?id=",
+                gameId
+              );
+            }
 
             statusMessage.textContent = "Jogo adicionado com sucesso!";
             statusMessage.classList.remove("text-blue-500");
             statusMessage.classList.add("text-green-500");
             document.getElementById("gameForm").reset();
+            dynamicContentContainer.innerHTML = ""; // Limpa os campos dinâmicos
+            toggleInputVisibility(); // Garante que a visibilidade e 'required' dos campos voltem ao estado correto
           } catch (e) {
             console.error("Erro ao adicionar documento: ", e);
             statusMessage.textContent =
