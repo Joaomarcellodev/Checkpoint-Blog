@@ -528,11 +528,11 @@
                 .value.trim();
 
               if (blockTitle) {
-                fullContentHTML += `<h2 class="text-xl font-semibold mb-2">${blockTitle}</h2>`;
+                fullContentHTML += `<h2 class="text-lg text-gray-600 font-semibold">${blockTitle}</h2>`;
                 hasDetailedContent = true;
               }
               if (text) {
-                fullContentHTML += `<p class="mb-4">${text}</p>`;
+                fullContentHTML += `<p class="pb-2 text-sm text-justify">${text}</p>`;
                 hasDetailedContent = true;
               }
             } else if (item.querySelector(".image-url-content")) {

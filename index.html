@@ -51,7 +51,7 @@
     <section class="flex">
       <aside class="flex-grow flex-shrink-0 w-20 bg-gray-200 p-2">
         <h3 class="text-sm text-gray-600">Outras indicações:</h3>
-        <div id="outrasIndicacoesContainer" class="columns-1 space-y-2"></div>
+        <div id="outrasIndicacoesContainer" class="columns-1 space-y-2 "></div>
       </aside>
 
       <main id="mainContent" class="basis-9/12 space-y-2 p-2">
@@ -185,7 +185,7 @@
               link.rel = "noopener noreferrer";
 
               const img = document.createElement("img");
-              img.className = "rounded-sm";
+              img.className = "rounded-sm py-1";
               img.src = game.imageUrl || "";
               img.alt = `Outra indicação: ${game.title || "Sem Título"}`;
 
