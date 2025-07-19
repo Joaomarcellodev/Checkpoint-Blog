@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="imagem/x-xicon" href="./src/assets/favicon.png" />
     <link rel="stylesheet" href="./src/output.css" />
-    <title>Cadastro de games</title>
+    <title>Cadastro de Conteúdo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       /* Estilos adicionais para os campos dinâmicos */
@@ -76,13 +76,13 @@
     >
       <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-2xl">
         <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">
-          Adicionar Novo Jogo
+          Adicionar Novo Conteúdo
         </h1>
 
         <form id="gameForm" class="space-y-4">
           <div>
             <label class="block text-gray-700 text-sm font-bold mb-2"
-              >Onde exibir o jogo?</label
+              >Onde exibir o conteúdo?</label
             >
             <div class="mt-2 space-y-2">
               <label class="inline-flex items-center">
@@ -116,113 +116,141 @@
             </div>
           </div>
 
-          <div id="titleField">
-            <label
-              for="title"
-              class="block text-gray-700 text-sm font-bold mb-2"
-              >Título do Jogo:</label
-            >
-            <input
-              type="text"
-              id="title"
-              name="title"
-              required
-              placeholder="Digite o nome do Jogo"
-              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
-            />
-          </div>
-
-          <div id="subtitleField">
-            <label
-              for="subtitle"
-              class="block text-gray-700 text-sm font-bold mb-2"
-              >Plataforma que desenvolveu:</label
-            >
-            <input
-              type="text"
-              id="subtitle"
-              name="subtitle"
-              required
-              placeholder="Digite a empresa que desenvolveu"
-              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
-            />
-          </div>
-
-          <div>
-            <label
-              for="imageUrl"
-              class="block text-gray-700 text-sm font-bold mb-2"
-              >URL da Imagem Principal:</label
-            >
-            <input
-              type="url"
-              id="imageUrl"
-              name="imageUrl"
-              required
-              placeholder="Coloque o link da imagem principal do jogo"
-              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
-            />
-          </div>
-
-          <div id="descriptionField">
-            <label
-              for="description"
-              class="block text-gray-700 text-sm font-bold mb-2"
-              >Descrição Curta (para a Página Inicial):</label
-            >
-            <textarea
-              id="description"
-              name="description"
-              rows="4"
-              required
-              placeholder="Coloque uma breve descrição para ser exibida na página inicial."
-              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
-            ></textarea>
-          </div>
-
-          <div class="border-t pt-4 mt-4">
-            <h3 class="text-gray-700 text-sm font-bold mb-2">
-              Conteúdo Detalhado do Artigo:
-            </h3>
-            <div id="dynamicContentContainer"></div>
-            <div class="flex space-x-2 mt-4">
-              <button
-                type="button"
-                id="addTextBtn"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-md focus:outline-none focus:shadow-outline transition duration-100 ease-in-out"
+          <div id="gameFieldsContainer">
+            <div id="titleField">
+              <label
+                for="title"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Título do Jogo:</label
               >
-                Adicionar Bloco de Texto/Título
-              </button>
-              <button
-                type="button"
-                id="addImageBtn"
-                class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-3 rounded-md focus:outline-none focus:shadow-outline transition duration-100 ease-in-out"
+              <input
+                type="text"
+                id="title"
+                name="title"
+                required
+                placeholder="Digite o nome do Jogo"
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+              />
+            </div>
+
+            <div id="imageUrlField">
+              <label
+                for="imageUrl"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >URL da Imagem Principal:</label
               >
-                Adicionar Imagem
-              </button>
+              <input
+                type="url"
+                id="imageUrl"
+                name="imageUrl"
+                required
+                placeholder="Coloque o link da imagem principal do jogo"
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+              />
+            </div>
+
+            <div id="descriptionField">
+              <label
+                for="description"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Pequena Descrição para o Card:</label
+              >
+              <textarea
+                id="description"
+                name="description"
+                rows="4"
+                required
+                placeholder="Coloque uma breve descrição para ser exibida no card/lista."
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+              ></textarea>
+            </div>
+
+            <div id="sectionTitleField" class="hidden">
+              <label
+                for="sectionTitle"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Título da Seção (Ex: Mais Jogados de Ação):</label
+              >
+              <input
+                type="text"
+                id="sectionTitle"
+                name="sectionTitle"
+                placeholder="Título para o grupo de cards (Ex: Jogos de 2024)"
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+              />
+            </div>
+            <div id="sectionYearField" class="hidden">
+              <label
+                for="sectionYear"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Ano da Seção (Ex: 2024):</label
+              >
+              <input
+                type="number"
+                id="sectionYear"
+                name="sectionYear"
+                placeholder="Ano (Ex: 2024)"
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+              />
+            </div>
+            <div id="subtitleField" class="hidden">
+              <label
+                for="subtitle"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Plataforma que desenvolveu:</label
+              >
+              <input
+                type="text"
+                id="subtitle"
+                name="subtitle"
+                placeholder="Digite a empresa que desenvolveu"
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+              />
+            </div>
+
+            <div class="border-t pt-4 mt-4 hidden" id="dynamicContentSection">
+              <h3 class="text-gray-700 text-sm font-bold mb-2">
+                Conteúdo Detalhado do Artigo:
+              </h3>
+              <div id="dynamicContentContainer"></div>
+              <div class="flex space-x-2 mt-4">
+                <button
+                  type="button"
+                  id="addTextBtn"
+                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-md focus:outline-none focus:shadow-outline transition duration-100 ease-in-out"
+                >
+                  Adicionar Bloco de Texto/Título
+                </button>
+                <button
+                  type="button"
+                  id="addImageBtn"
+                  class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-3 rounded-md focus:outline-none focus:shadow-outline transition duration-100 ease-in-out"
+                >
+                  Adicionar Imagem
+                </button>
+              </div>
+            </div>
+
+            <div id="destinationUrlField" class="hidden">
+              <label
+                for="destinationUrl"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >URL da Página de Destino (Opcional):</label
+              >
+              <input
+                type="url"
+                id="destinationUrl"
+                name="destinationUrl"
+                placeholder="Ex: https://seublog.com/detalhes-do-jogo"
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+              />
             </div>
           </div>
-
-          <div id="destinationUrlField">
-            <label
-              for="destinationUrl"
-              class="block text-gray-700 text-sm font-bold mb-2"
-              >URL da Página de Destino (Opcional, para Mais Jogados):</label
-            >
-            <input
-              type="url"
-              id="destinationUrl"
-              name="destinationUrl"
-              placeholder="Ex: https://seublog.com/detalhes-do-jogo"
-              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
-            />
-          </div>
-
           <button
             type="submit"
             class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline w-full transition duration-300 ease-in-out transform hover:scale-105"
           >
-            Adicionar Jogo
+            Adicionar/Atualizar Conteúdo
           </button>
 
           <div
@@ -261,12 +289,19 @@
         getFirestore,
         collection,
         addDoc,
-        updateDoc, // Importar updateDoc para atualizar o destino
+        updateDoc,
+        doc,
+        setDoc,
+        query,
+        where,
+        getDocs,
       } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+      // Não precisamos de storage para upload de arquivo se a URL já é fornecida
+      // import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
-      // SUAS CREDENCIAIS DO FIREBASE - USE AS SUAS REAIS!
+      // SUAS CREDENCIAIS DO FIREBASE - SUBSTITUA 'SUA_CHAVE_REAL_DO_FIREBASE_AQUI' PELA SUA CHAVE VERDADEIRA!
       const firebaseConfig = {
-        apiKey: "AIzaSyBKt0S9F5DeZxZOPLw3x8VQJBx9Zbn-E", // Use sua chave real
+        apiKey: "AIzaSyBKt0S9F5DeZxZOPnLMx3x8VQJBx9Zbn-E", // <<< SUBSTITUA AQUI!
         authDomain: "checkpoint-blog-781dd.firebaseapp.com",
         projectId: "checkpoint-blog-781dd",
         storageBucket: "checkpoint-blog-781dd.firebasestorage.app",
@@ -275,8 +310,6 @@
       };
 
       // Inicializa o Firebase
-      const appId = firebaseConfig.appId;
-
       let app;
       let db;
       let auth;
@@ -287,9 +320,11 @@
        */
       async function initializeFirebase() {
         try {
-          app = initializeApp(firebaseConfig);
-          db = getFirestore(app);
-          auth = getAuth(app);
+          if (!app) {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+          }
 
           if (typeof __initial_auth_token !== "undefined") {
             await signInWithCustomToken(auth, __initial_auth_token);
@@ -308,60 +343,123 @@
         }
       }
 
-      // Referências aos elementos para controle de visibilidade
+      // Referências aos elementos HTML
       const placementRadios = document.querySelectorAll(
         'input[name="placement"]'
       );
+      const gameFieldsContainer = document.getElementById(
+        "gameFieldsContainer"
+      );
+
+      // Campos de Jogo / Card
       const titleField = document.getElementById("titleField");
-      const subtitleField = document.getElementById("subtitleField");
+      const imageUrlField = document.getElementById("imageUrlField");
       const descriptionField = document.getElementById("descriptionField");
+
+      // Campos da Seção (Novos)
+      const sectionTitleField = document.getElementById("sectionTitleField");
+      const sectionYearField = document.getElementById("sectionYearField");
+
+      // Campos que serão ocultados para 'maisjogados'
+      const subtitleField = document.getElementById("subtitleField");
+      const dynamicContentSection = document.getElementById(
+        "dynamicContentSection"
+      );
       const destinationUrlField = document.getElementById(
         "destinationUrlField"
       );
 
-      // Referências diretas aos inputs para gerenciar o atributo 'required'
+      // Referências diretas aos inputs para gerenciar o atributo 'required' e valores
       const titleInput = document.getElementById("title");
-      const subtitleInput = document.getElementById("subtitle");
+      const imageUrlInput = document.getElementById("imageUrl");
       const descriptionInput = document.getElementById("description");
-      const imageUrlInput = document.getElementById("imageUrl"); // imageUrl é sempre obrigatório
+      const sectionTitleInput = document.getElementById("sectionTitle"); // NOVO
+      const sectionYearInput = document.getElementById("sectionYear"); // NOVO
+
+      const subtitleInput = document.getElementById("subtitle");
       const destinationUrlInput = document.getElementById("destinationUrl");
+
+      function setFieldVisibilityAndRequired(
+        fieldElement,
+        inputElement,
+        isVisible,
+        isRequired
+      ) {
+        if (fieldElement) {
+          if (isVisible) {
+            fieldElement.classList.remove("hidden");
+          } else {
+            fieldElement.classList.add("hidden");
+          }
+        }
+
+        if (inputElement) {
+          if (isRequired) {
+            inputElement.setAttribute("required", "true");
+          } else {
+            inputElement.removeAttribute("required");
+          }
+          // Limpa o valor do input se ele for escondido para evitar envio de dados indesejados
+          if (!isVisible) {
+            inputElement.value = "";
+          }
+        }
+      }
 
       function toggleInputVisibility() {
         const selectedPlacement = document.querySelector(
           'input[name="placement"]:checked'
         ).value;
 
-        // Função auxiliar para definir visibilidade e atributo 'required'
-        const setFieldVisibilityAndRequired = (
-          fieldElement,
-          inputElement,
-          isVisible,
-          isRequired
-        ) => {
-          if (isVisible) {
-            fieldElement.classList.remove("hidden");
-          } else {
-            fieldElement.classList.add("hidden");
-          }
-          if (isRequired) {
-            inputElement.setAttribute("required", "true");
-          } else {
-            inputElement.removeAttribute("required");
-            // Não limpa o valor se o campo for apenas "não obrigatório" mas ainda visível
-            // inputElement.value = '';
-          }
-          // Sempre limpa o valor se o campo for ocultado
-          if (!isVisible) {
-            inputElement.value = "";
-          }
-        };
+        // Esconde e desobriga todos os campos inicialmente
+        setFieldVisibilityAndRequired(titleField, titleInput, false, false);
+        setFieldVisibilityAndRequired(
+          imageUrlField,
+          imageUrlInput,
+          false,
+          false
+        );
+        setFieldVisibilityAndRequired(
+          descriptionField,
+          descriptionInput,
+          false,
+          false
+        );
+        setFieldVisibilityAndRequired(
+          sectionTitleField,
+          sectionTitleInput,
+          false,
+          false
+        ); // NOVO
+        setFieldVisibilityAndRequired(
+          sectionYearField,
+          sectionYearInput,
+          false,
+          false
+        ); // NOVO
 
-        // Lógica baseada na seleção
+        // Campos que sempre serão ocultados para 'maisjogados'
+        setFieldVisibilityAndRequired(
+          subtitleField,
+          subtitleInput,
+          false,
+          false
+        );
+        dynamicContentSection.classList.add("hidden");
+        dynamicContentContainer.innerHTML = ""; // Limpa conteúdo detalhado
+        setFieldVisibilityAndRequired(
+          destinationUrlField,
+          destinationUrlInput,
+          false,
+          false
+        );
+
+        // Lógica baseada na seleção do radio button
         if (selectedPlacement === "index") {
           setFieldVisibilityAndRequired(titleField, titleInput, true, true);
           setFieldVisibilityAndRequired(
-            subtitleField,
-            subtitleInput,
+            imageUrlField,
+            imageUrlInput,
             true,
             true
           );
@@ -372,55 +470,62 @@
             true
           );
           setFieldVisibilityAndRequired(
-            destinationUrlField,
-            destinationUrlInput,
-            false,
-            false
-          ); // Oculta e não é obrigatório
-          imageUrlInput.setAttribute("required", "true"); // URL da imagem principal é sempre obrigatória para index
+            subtitleField,
+            subtitleInput,
+            true,
+            true
+          );
+          dynamicContentSection.classList.remove("hidden"); // Mostra a seção de conteúdo detalhado
         } else if (selectedPlacement === "maisjogados") {
-          setFieldVisibilityAndRequired(titleField, titleInput, true, false); // Visível, mas não obrigatório
+          // Campos para o Card do Jogo
+          setFieldVisibilityAndRequired(titleField, titleInput, true, true);
           setFieldVisibilityAndRequired(
-            subtitleField,
-            subtitleInput,
+            imageUrlField,
+            imageUrlInput,
             true,
-            false
-          ); // Visível, mas não obrigatório
+            true
+          );
           setFieldVisibilityAndRequired(
             descriptionField,
             descriptionInput,
             true,
-            false
-          ); // Visível, mas não obrigatório
+            true
+          );
+
+          // Campos para o Título e Ano da Seção
           setFieldVisibilityAndRequired(
-            destinationUrlField,
-            destinationUrlInput,
+            sectionTitleField,
+            sectionTitleInput,
             true,
-            false
-          ); // Visível, mas não obrigatório
-          imageUrlInput.setAttribute("required", "true"); // URL da imagem principal é sempre obrigatória para mais jogados
+            true
+          ); // NOVO
+          setFieldVisibilityAndRequired(
+            sectionYearField,
+            sectionYearInput,
+            true,
+            true
+          ); // NOVO
         } else if (selectedPlacement === "outras_indicacoes") {
-          // Todos os campos de texto/descrição ficam visíveis, mas não obrigatórios
-          setFieldVisibilityAndRequired(titleField, titleInput, true, false);
+          setFieldVisibilityAndRequired(titleField, titleInput, true, true);
           setFieldVisibilityAndRequired(
-            subtitleField,
-            subtitleInput,
+            imageUrlField,
+            imageUrlInput,
             true,
-            false
+            true
           );
           setFieldVisibilityAndRequired(
             descriptionField,
             descriptionInput,
             true,
-            false
+            true
           );
           setFieldVisibilityAndRequired(
-            destinationUrlField,
-            destinationUrlInput,
-            false,
-            false
-          ); // Oculta e não é obrigatório, pois será gerado
-          imageUrlInput.setAttribute("required", "true"); // URL da imagem principal ainda é obrigatória para outras indicações
+            subtitleField,
+            subtitleInput,
+            true,
+            true
+          );
+          dynamicContentSection.classList.remove("hidden"); // Conteúdo detalhado é obrigatório
         }
       }
 
@@ -434,7 +539,7 @@
         toggleInputVisibility(); // Define o estado inicial da visibilidade e dos 'required'
       });
 
-      // Gerenciamento de Conteúdo Dinâmico
+      // Gerenciamento de Conteúdo Dinâmico (para fullContent de jogos - apenas para index/outras_indicacoes)
       const dynamicContentContainer = document.getElementById(
         "dynamicContentContainer"
       );
@@ -448,14 +553,14 @@
           "content-item p-3 border rounded-md bg-gray-50 relative";
         div.innerHTML = `
               <label class="block text-gray-700 text-sm font-semibold mb-1">Título do Bloco (Opcional):</label>
-              <input 
-                type="text" 
-                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500 title-content mb-2" 
+              <input
+                type="text"
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500 title-content mb-2"
                 placeholder="Título para este bloco de texto (opcional)">
               <label class="block text-gray-700 text-sm font-semibold mb-1">Conteúdo do Bloco de Texto:</label>
-              <textarea 
-                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500 text-area-content" 
-                rows="5" 
+              <textarea
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500 text-area-content"
+                rows="5"
                 placeholder="Digite seu texto aqui..."></textarea>
               <button type="button" class="remove-btn">Remover</button>
           `;
@@ -472,9 +577,9 @@
           "content-item p-3 border rounded-md bg-gray-50 relative";
         div.innerHTML = `
               <label class="block text-gray-700 text-sm font-semibold mb-1">URL da Imagem no Artigo:</label>
-              <input 
-                type="url" 
-                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500 image-url-content" 
+              <input
+                type="url"
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500 image-url-content"
                 placeholder="Cole o link da imagem aqui...">
               <button type="button" class="remove-btn">Remover</button>
           `;
@@ -499,155 +604,132 @@
             return;
           }
 
-          const title = titleInput.value;
-          const subtitle = subtitleInput.value;
-          const imageUrl = imageUrlInput.value;
-          const description = descriptionInput.value;
-          let destinationUrl = destinationUrlInput.value;
-          const placement = document.querySelector(
-            'input[name="placement"]:checked'
-          ).value;
-
           const statusMessage = document.getElementById("statusMessage");
           statusMessage.textContent = "Enviando...";
           statusMessage.classList.remove("text-red-500", "text-green-500");
           statusMessage.classList.add("text-blue-500");
 
-          let fullContentHTML = "";
-          let hasDetailedContent = false;
+          const placement = document.querySelector(
+            'input[name="placement"]:checked'
+          ).value;
 
-          const contentItems = dynamicContentContainer.children;
-          for (let i = 0; i < contentItems.length; i++) {
-            const item = contentItems[i];
-            if (item.querySelector(".text-area-content")) {
-              const blockTitle = item
-                .querySelector(".title-content")
-                .value.trim();
-              const text = item
-                .querySelector(".text-area-content")
-                .value.trim();
-
-              if (blockTitle) {
-                fullContentHTML += `<h2 class="text-lg text-gray-600 font-semibold">${blockTitle}</h2>`;
-                hasDetailedContent = true;
-              }
-              if (text) {
-                fullContentHTML += `<p class="pb-2 text-sm text-justify">${text}</p>`;
-                hasDetailedContent = true;
-              }
-            } else if (item.querySelector(".image-url-content")) {
-              const imgUrl = item
-                .querySelector(".image-url-content")
-                .value.trim();
-              if (imgUrl) {
-                fullContentHTML += `<div class="flex justify-center items-center mb-4"><img class="rounded-sm py-2 max-w-full h-auto" src="${imgUrl}" alt="Imagem do Artigo" /></div>`;
-                hasDetailedContent = true;
-              }
-            }
-          }
+          const collectionPath = `artifacts/${firebaseConfig.appId}/public/data/games`;
 
           try {
+            // Autenticação anônima antes de cada operação
+            await signInAnonymously(auth);
+
+            // Coleta os dados comuns a todos os placements (mesmo que alguns estejam ocultos)
+            const title = titleInput.value.trim();
+            const imageUrl = imageUrlInput.value.trim();
+            const description = descriptionInput.value.trim();
+            const subtitle = subtitleInput.value.trim(); // Pode estar vazio se oculto
+
+            // Campos específicos para "Mais Jogados"
+            const sectionTitle = sectionTitleInput.value.trim(); // NOVO
+            const sectionYear = sectionYearInput.value.trim(); // NOVO
+
             let gameData = {
               placement,
               imageUrl,
               createdAt: new Date(),
-              fullContent: fullContentHTML,
-              // Garante que title, subtitle, description existam no objeto, mesmo que vazios
               title: title || "",
-              subtitle: subtitle || "",
               description: description || "",
             };
 
+            // Lógica para "Mais Jogados"
             if (placement === "maisjogados") {
-              gameData.destinationUrl = destinationUrl || ""; // Permite URL externa para Mais Jogados
-            } else if (placement === "outras_indicacoes") {
-              // Para "Outras Indicações", o destino será game.html com o ID do documento
-              // O destinationUrl será definido após o addDoc, não aqui.
-
-              // Validação: fullContent é obrigatório para "Outras Indicações" (agora que leva a game.html)
-              if (!hasDetailedContent) {
-                statusMessage.textContent =
-                  "Para 'Outras Indicações', o Conteúdo Detalhado do Artigo é obrigatório. Por favor, adicione blocos de texto ou imagem.";
-                statusMessage.classList.remove(
-                  "text-blue-500",
-                  "text-green-500"
-                );
-                statusMessage.classList.add("text-red-500");
-                return;
-              }
-              // Validação: imageUrl é obrigatória para "Outras Indicações"
-              if (!imageUrl) {
-                statusMessage.textContent =
-                  "Para 'Outras Indicações', a URL da Imagem Principal é obrigatória.";
-                statusMessage.classList.remove(
-                  "text-blue-500",
-                  "text-green-500"
-                );
-                statusMessage.classList.add("text-red-500");
-                return;
-              }
-            } else {
-              // placement === 'index'
-              gameData.destinationUrl = ""; // Para index, não há URL de destino externa
-
-              // Validação: fullContent é obrigatório para jogos da Página Inicial
-              if (!hasDetailedContent) {
-                statusMessage.textContent =
-                  "Para 'Página Inicial', o Conteúdo Detalhado do Jogo é obrigatório. Por favor, adicione blocos de texto ou imagem.";
-                statusMessage.classList.remove(
-                  "text-blue-500",
-                  "text-green-500"
-                );
-                statusMessage.classList.add("text-red-500");
-                return;
-              }
-
               if (
-                !gameData.title ||
-                !gameData.subtitle ||
-                !gameData.description ||
-                !gameData.imageUrl
+                !title ||
+                !imageUrl ||
+                !description ||
+                !sectionTitle ||
+                !sectionYear
               ) {
                 statusMessage.textContent =
-                  "Por favor, preencha Título, Plataforma, Descrição e URL da Imagem para a Página Inicial.";
-                statusMessage.classList.remove(
-                  "text-blue-500",
-                  "text-green-500"
-                );
+                  "Por favor, preencha todos os campos do card e da seção para 'Mais Jogados'.";
+                statusMessage.classList.remove("text-blue-500");
                 statusMessage.classList.add("text-red-500");
                 return;
               }
+              gameData.sectionTitle = sectionTitle; // Adiciona o título da seção
+              gameData.sectionYear = parseInt(sectionYear); // Adiciona o ano da seção como número
+              gameData.placement = "maisjogados_card"; // Garante o placement correto para cards
+              // destinationUrl será gerado automaticamente
+            } else if (
+              placement === "index" ||
+              placement === "outras_indicacoes"
+            ) {
+              // Lógica para 'index' e 'outras_indicacoes' (mantida da versão anterior)
+              if (!title || !imageUrl || !description || !subtitle) {
+                statusMessage.textContent =
+                  "Por favor, preencha todos os campos obrigatórios para este tipo de conteúdo.";
+                statusMessage.classList.remove("text-blue-500");
+                statusMessage.classList.add("text-red-500");
+                return;
+              }
+              gameData.subtitle = subtitle;
+
+              let fullContentHTML = "";
+              let hasDetailedContent = false;
+              const contentItems = dynamicContentContainer.children;
+              for (let i = 0; i < contentItems.length; i++) {
+                const item = contentItems[i];
+                if (item.querySelector(".text-area-content")) {
+                  const blockTitle = item
+                    .querySelector(".title-content")
+                    .value.trim();
+                  const text = item
+                    .querySelector(".text-area-content")
+                    .value.trim();
+                  if (blockTitle) {
+                    fullContentHTML += `<h2 class="text-xl font-semibold mb-2">${blockTitle}</h2>`;
+                    hasDetailedContent = true;
+                  }
+                  if (text) {
+                    fullContentHTML += `<p class="mb-4">${text}</p>`;
+                    hasDetailedContent = true;
+                  }
+                } else if (item.querySelector(".image-url-content")) {
+                  const imgUrl = item
+                    .querySelector(".image-url-content")
+                    .value.trim();
+                  if (imgUrl) {
+                    fullContentHTML += `<div class="flex justify-center items-center mb-4"><img class="rounded-sm py-2 max-w-full h-auto" src="${imgUrl}" alt="Imagem do Artigo" /></div>`;
+                    hasDetailedContent = true;
+                  }
+                }
+              }
+              if (placement === "outras_indicacoes" && !hasDetailedContent) {
+                statusMessage.textContent =
+                  "Para 'Outras Indicações', o Conteúdo Detalhado do Artigo é obrigatório. Por favor, adicione blocos de texto ou imagem.";
+                statusMessage.classList.remove("text-blue-500");
+                statusMessage.classList.add("text-red-500");
+                return;
+              }
+              gameData.fullContent = fullContentHTML;
             }
 
-            const collectionPath = `artifacts/${appId}/public/data/games`;
+            // Adiciona o documento ao Firestore
             const docRef = await addDoc(
               collection(db, collectionPath),
               gameData
             );
-            console.log("Documento adicionado com ID: ", docRef.id);
 
-            // Atualiza o destinationUrl para "Outras Indicações" APÓS ter o ID do documento
-            if (placement === "outras_indicacoes") {
-              const gameId = docRef.id;
-              await updateDoc(docRef, {
-                destinationUrl: `game.html?id=${gameId}`,
-              });
-              console.log(
-                "destinationUrl atualizado para game.html?id=",
-                gameId
-              );
-            }
+            // Atualiza o destinationUrl para game.html?id= APÓS ter o ID do documento
+            await updateDoc(docRef, {
+              destinationUrl: `game.html?id=${docRef.id}`,
+            });
 
-            statusMessage.textContent = "Jogo adicionado com sucesso!";
+            statusMessage.textContent = "Conteúdo adicionado com sucesso!";
             statusMessage.classList.remove("text-blue-500");
             statusMessage.classList.add("text-green-500");
-            document.getElementById("gameForm").reset();
-            dynamicContentContainer.innerHTML = ""; // Limpa os campos dinâmicos
-            toggleInputVisibility(); // Garante que a visibilidade e 'required' dos campos voltem ao estado correto
-          } catch (e) {
-            console.error("Erro ao adicionar documento: ", e);
-            statusMessage.textContent =
-              "Erro ao adicionar o jogo: " + e.message;
+            document.getElementById("gameForm").reset(); // Limpa o formulário
+            dynamicContentContainer.innerHTML = ""; // Limpa os blocos dinâmicos
+            toggleInputVisibility(); // Reseta a visibilidade dos campos
+          } catch (error) {
+            console.error("Erro ao adicionar conteúdo:", error);
+            statusMessage.textContent = `Erro ao adicionar conteúdo: ${error.message}`;
             statusMessage.classList.remove("text-blue-500", "text-green-500");
             statusMessage.classList.add("text-red-500");
           }

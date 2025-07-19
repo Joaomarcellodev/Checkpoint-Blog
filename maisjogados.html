@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="imagem/x-icon" href="./src/assets/favicon.png" />
+    <link rel="icon" type="imagem/x-xicon" href="./src/assets/favicon.png" />
     <link rel="stylesheet" href="./src/output.css" />
-    <title>Mais jogados</title>
+    <title>Mais Jogados - Checkpoint Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <body class="bg-orange-200">
+  <body class="bg-orange-200 min-h-screen flex flex-col">
     <header class="bg-gray-900">
       <div class="flex justify-center items-center">
         <img
@@ -40,145 +41,39 @@
         href="contato.html"
         >Contato</a
       >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="dashboard.html"
+        >Dashboard</a
+      >
     </nav>
 
-    <!-- Mais jogados -->
+    <main class="flex-grow container mx-auto p-4 flex justify-center">
+      <div class="basis-9/12 space-y-2 p-2">
+        <article class="w-full bg-white p-4 space-y-6 rounded shadow">
+          <h1
+            id="pageMainTitle"
+            class="text-2xl text-gray-800 font-bold text-center"
+          ></h1>
+          <p id="pageIntroText" class="text-sm text-justify text-gray-700"></p>
 
-    <main class="basis-9/12 space-y-2 p-2">
-      <article class="w-full bg-white p-4 space-y-6 rounded shadow">
-        <h1 class="text-lg text-gray-600 font-semibold">
-          Quais jogos foram mais jogados?
-        </h1>
-        <h2 class="text-sm text-gray-400">2024</h2>
-
-        <p class="text-sm text-justify text-gray-700">
-          No mundo dos games, cada ponto de salvamento é um momento de respiro.
-          Uma pausa antes da próxima batalha, uma chance de olhar para trás e
-          ver o quanto evoluímos. É daí que nasce o CheckPoint — um blog feito
-          por quem cresceu com o controle na mão, viveu cada geração dos
-          consoles, e entende que jogar vai muito além do entretenimento: é uma
-          forma de viver, sentir e se expressar.
-        </p>
-        <p class="text-sm text-justify text-gray-700">
-          Nosso compromisso é com a verdade gamer: informar, entreter, criticar
-          e refletir. Seja relembrando os clássicos que moldaram gerações,
-          desvendando tendências do mercado atual ou discutindo os caminhos que
-          a indústria está trilhando para o futuro.
-        </p>
-
-        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <!-- Card Fortnite -->
-          <div class="bg-gray-100 rounded-lg overflow-hidden shadow">
-            <img
-              src="src/assets/fortinate.webp"
-              alt="Fortnite"
-              class="w-full h-40 object-cover"
-            />
-            <div class="p-4 space-y-2">
-              <h3 class="text-gray-800 font-semibold text-base">Fortnite</h3>
-              <p class="text-sm text-gray-600 text-justify">
-                Liderando com mais de
-                <strong>38 milhões de jogadores mensais</strong>, Fortnite
-                continua reinando com seu universo em constante transformação.
-              </p>
-            </div>
+          <div id="loadingMessage" class="text-center text-gray-600">
+            Carregando conteúdo...
+          </div>
+          <div id="errorMessage" class="text-center text-red-500 hidden">
+            Erro ao carregar o conteúdo da página.
+          </div>
+          <div id="noContentMessage" class="text-center text-gray-500 hidden">
+            Nenhum conteúdo ou jogo encontrado para esta página.
           </div>
 
-          <!-- Card EA FC 25 -->
-          <div class="bg-gray-100 rounded-lg overflow-hidden shadow">
-            <img
-              src="src/assets/fCeA25.jpg"
-              alt="EA Sports FC 25"
-              class="w-full h-40 object-cover"
-            />
-            <div class="p-4 space-y-2">
-              <h3 class="text-gray-800 font-semibold text-base">
-                EA Sports FC 25
-              </h3>
-              <p class="text-sm text-gray-600 text-justify">
-                Mesmo sem o nome FIFA, conquistou o mundo do futebol digital com
-                <strong>12 milhões de jogadores</strong> nos primeiros meses.
-              </p>
-            </div>
-          </div>
-
-          <!-- Card Helldivers 2 -->
-          <div class="bg-gray-100 rounded-lg overflow-hidden shadow">
-            <img
-              src="src/assets/heldivers.jpg"
-              alt="Helldivers 2"
-              class="w-full h-40 object-cover object-center"
-            />
-            <div class="p-4 space-y-2">
-              <h3 class="text-gray-800 font-semibold text-base">
-                Helldivers 2
-              </h3>
-              <p class="text-sm text-gray-600 text-justify">
-                Um sucesso cooperativo com
-                <strong>7 milhões de jogadores</strong>, trazendo guerra tática
-                e explosiva em equipe.
-              </p>
-            </div>
-          </div>
-
-          <!-- Card Black Myth -->
-          <div class="bg-gray-100 rounded-lg overflow-hidden shadow">
-            <img
-              src="src/assets/kong2.jpg"
-              alt="Black Myth: Wukong"
-              class="w-full h-40 object-cover"
-            />
-            <div class="p-4 space-y-2">
-              <h3 class="text-gray-800 font-semibold text-base">
-                Black Myth: Wukong
-              </h3>
-              <p class="text-sm text-gray-600 text-justify">
-                Com gráficos absurdos e narrativa mitológica, bateu
-                <strong>2,4 milhões de jogadores simultâneos</strong> no
-                lançamento.
-              </p>
-            </div>
-          </div>
-
-          <!-- Card Palworld -->
-          <div class="bg-gray-100 rounded-lg overflow-hidden shadow">
-            <img
-              src="src/assets/Capa_Palworld.jpeg"
-              alt="Palworld"
-              class="w-full h-40 object-cover"
-            />
-            <div class="p-4 space-y-2">
-              <h3 class="text-gray-800 font-semibold text-base">Palworld</h3>
-              <p class="text-sm text-gray-600 text-justify">
-                A mistura de Pokémon com armas cativou milhões — e alcançou
-                <strong>2,1 milhões de jogadores simultâneos</strong>.
-              </p>
-            </div>
-          </div>
-
-          <!-- Card CS2 / Outros -->
-          <div class="bg-gray-100 rounded-lg overflow-hidden shadow">
-            <img
-              src="src/assets/cs2.jpg"
-              alt="Counter-Strike 2"
-              class="w-full h-40 object-cover"
-            />
-            <div class="p-4 space-y-2">
-              <h3 class="text-gray-800 font-semibold text-base">
-                Counter‑Strike 2 e clássicos
-              </h3>
-              <p class="text-sm text-gray-600 text-justify">
-                Títulos como CS2, Apex Legends e Dota 2 mantiveram seu domínio
-                nas arenas competitivas com picos acima de 1 milhão.
-              </p>
-            </div>
-          </div>
-        </div>
-      </article>
+          <div id="sectionsContainer" class="space-y-8"></div>
+        </article>
+      </div>
     </main>
 
     <footer
-      class="bg-orange-500 w-full h-24 items-center justify-center flex text-center"
+      class="bg-orange-500 w-full h-24 items-center justify-center flex text-center mt-auto"
     >
       <div class="text-center text-sm">
         <p class="text-white">
@@ -192,5 +87,184 @@
         </p>
       </div>
     </footer>
+
+    <script type="module">
+      // Importações do Firebase SDK
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getAuth,
+        signInAnonymously,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+      import {
+        getFirestore,
+        collection,
+        query,
+        where,
+        getDocs,
+        doc,
+        getDoc,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+      import { orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"; // Importar orderBy
+
+      // SUAS CREDENCIAIS DO FIREBASE - SUBSTITUA 'SUA_CHAVE_REAL_DO_FIREBASE_AQUI' PELA SUA CHAVE VERDADEIRA!
+      const firebaseConfig = {
+        apiKey: "AIzaSyBKt0S9F5DeZxZOPnLMx3x8VQJBx9Zbn-E", // <<< SUBSTITUA AQUI!
+        authDomain: "checkpoint-blog-781dd.firebaseapp.com",
+        projectId: "checkpoint-blog-781dd",
+        storageBucket: "checkpoint-blog-781dd.firebasestorage.app",
+        messagingSenderId: "719291913960",
+        appId: "1:719291913960:web:a222f2ad700d773c359b5d",
+      };
+
+      // Inicializa o Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const auth = getAuth(app);
+      const appId = firebaseConfig.appId;
+
+      // Elementos HTML para exibir o conteúdo da página e os cards
+      const pageMainTitle = document.getElementById("pageMainTitle");
+      const pageIntroText = document.getElementById("pageIntroText");
+      const sectionsContainer = document.getElementById("sectionsContainer"); // Novo container para as seções
+      const loadingMessage = document.getElementById("loadingMessage");
+      const errorMessage = document.getElementById("errorMessage");
+      const noContentMessage = document.getElementById("noContentMessage");
+
+      async function loadMaisJogadosContent() {
+        loadingMessage.classList.remove("hidden");
+        errorMessage.classList.add("hidden");
+        noContentMessage.classList.add("hidden");
+
+        // Limpa todo o conteúdo antes de carregar
+        pageMainTitle.textContent = "";
+        pageIntroText.textContent = "";
+        sectionsContainer.innerHTML = ""; // Limpa o container de seções
+
+        try {
+          await signInAnonymously(auth);
+          console.log(
+            "Usuário autenticado anonimamente para leitura da página Mais Jogados."
+          );
+
+          const collectionPath = `artifacts/${appId}/public/data/games`;
+
+          // --- 1. Carregar Título e Texto Introdutório da Página (Configuração Global Opcional) ---
+          const pageGeneralConfigDocRef = doc(
+            db,
+            collectionPath,
+            "maisJogadosPageGeneralConfig"
+          );
+          const pageGeneralConfigDocSnap = await getDoc(
+            pageGeneralConfigDocRef
+          );
+
+          if (pageGeneralConfigDocSnap.exists()) {
+            const config = pageGeneralConfigDocSnap.data();
+            pageMainTitle.textContent =
+              config.mainTitle || "Nossos Jogos Mais Jogados";
+            pageIntroText.textContent =
+              config.introText ||
+              "Explore as listas dos jogos que mais marcaram época e continuam populares!";
+          } else {
+            pageMainTitle.textContent = "Nossos Jogos Mais Jogados";
+            pageIntroText.textContent =
+              "Explore as listas dos jogos que mais marcaram época e continuam populares! (Configuração geral não encontrada)";
+          }
+
+          // --- 2. Buscar e Agrupar Cards por Seção (sectionTitle e sectionYear) ---
+          const qCards = query(
+            collection(db, collectionPath),
+            where("placement", "==", "maisjogados_card"),
+            orderBy("sectionYear", "desc"),
+            orderBy("sectionTitle", "asc"),
+            orderBy("createdAt", "desc")
+          );
+          const cardsQuerySnapshot = await getDocs(qCards);
+
+          if (cardsQuerySnapshot.empty) {
+            noContentMessage.classList.remove("hidden");
+          } else {
+            const sections = {};
+
+            cardsQuerySnapshot.forEach((doc) => {
+              const game = doc.data();
+              const sectionKey = `${game.sectionTitle || "Sem Título"}-${
+                game.sectionYear || "Sem Ano"
+              }`;
+
+              if (!sections[sectionKey]) {
+                sections[sectionKey] = {
+                  title: game.sectionTitle || "Seção Sem Título",
+                  year: game.sectionYear || "Ano Desconhecido",
+                  cards: [],
+                };
+              }
+              sections[sectionKey].cards.push(game);
+            });
+
+            const sortedSectionKeys = Object.keys(sections).sort((a, b) => {
+              const [titleA, yearA] = a.split("-");
+              const [titleB, yearB] = b.split("-");
+
+              if (parseInt(yearB) !== parseInt(yearA)) {
+                return parseInt(yearB) - parseInt(yearA);
+              }
+              return titleA.localeCompare(titleB);
+            });
+
+            sortedSectionKeys.forEach((key) => {
+              const section = sections[key];
+
+              const sectionDiv = document.createElement("div");
+              sectionDiv.className = "section-block mb-8";
+
+              sectionDiv.innerHTML = `
+                    <h2 class="text-xl font-bold text-gray-700 mb-4">
+                        ${section.title} <span class="text-gray-500 text-sm">(${section.year})</span>
+                    </h2>
+                    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        </div>
+                `;
+
+              const cardsGridContainer = sectionDiv.querySelector(".grid");
+
+              section.cards.forEach((game) => {
+                const cardDiv = document.createElement("div");
+                cardDiv.className =
+                  "bg-gray-100 rounded-lg overflow-hidden shadow";
+
+                cardDiv.innerHTML = `
+                      <img src="${
+                        game.imageUrl || "./src/assets/placeholder.png"
+                      }" alt="${
+                  game.title || "Imagem do jogo"
+                }" class="w-full h-40 object-cover" />
+                      <div class="p-4 space-y-2">
+                          <h3 class="text-gray-800 font-semibold text-base">${
+                            game.title || "Título Desconhecido"
+                          }</h3>
+                          <p class="text-sm text-gray-600 text-justify">${
+                            game.description || "Descrição não disponível."
+                          }</p>
+                          </div>
+                  `;
+                cardsGridContainer.appendChild(cardDiv);
+              });
+              sectionsContainer.appendChild(sectionDiv);
+            });
+          }
+        } catch (error) {
+          console.error(
+            "Erro ao carregar conteúdo da página Mais Jogados:",
+            error
+          );
+          errorMessage.classList.remove("hidden");
+        } finally {
+          loadingMessage.classList.add("hidden");
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", loadMaisJogadosContent);
+    </script>
   </body>
 </html>
