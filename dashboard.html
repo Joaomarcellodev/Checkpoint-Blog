@@ -1,284 +1,475 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="imagem/x-icon" href="./src/assets/favicon.png" />
+    <link rel="icon" type="imagem/x-xicon" href="./src/assets/favicon.png" />
     <link rel="stylesheet" href="./src/output.css" />
     <title>Dashboard de Games</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom styles for Inter font and general body styling */
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+      /* Custom styles for Inter font and general body styling */
+      body {
+        font-family: "Inter", sans-serif;
+      }
 
-        /* Estilos para o modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-            justify-content: center;
-            align-items: center;
-        }
+      /* Estilos para o modal */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+        justify-content: center;
+        align-items: center;
+      }
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 600px;
-            position: relative;
-        }
+      .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 600px;
+        position: relative;
+      }
 
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+      .close-button {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
 
-        .close-button:hover,
-        .close-button:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+      .close-button:hover,
+      .close-button:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      /* Adicionado para garantir o corte da descrição se line-clamp não estiver ativo */
+      .description-clamp {
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Número de linhas para exibir */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     </style>
-</head>
+  </head>
 
-<body class="bg-orange-200 min-h-screen flex flex-col">
-
+  <body class="bg-orange-200 min-h-screen flex flex-col">
     <header class="bg-gray-900">
-        <div class="flex justify-center items-center">
-            <img class="h-60" src="src/assets/logo.png" alt="Logo Checkpoint Blog" />
-        </div>
+      <div class="flex justify-center items-center">
+        <img
+          class="h-60"
+          src="src/assets/logo.png"
+          alt="Logo Checkpoint Blog"
+        />
+      </div>
     </header>
 
     <nav class="bg-gray-300 px-2 text-gray-700 flex space-x-3 justify-center">
-        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="index.html">Inicio</a>
-        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="sobre.html">Sobre</a>
-        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="maisjogados.html">Mais Jogados</a>
-        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="contato.html">Contato</a>
-        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="cadastro.html">Cadastro</a>
-        <a class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold" href="dashboard.html">Dashboard</a>
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="index.html"
+        >Inicio</a
+      >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="sobre.html"
+        >Sobre</a
+      >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="maisjogados.html"
+        >Mais Jogados</a
+      >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="contato.html"
+        >Contato</a
+      >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="cadastro.html"
+        >Cadastro</a
+      >
+      <a
+        class="py-2 px-1 hover:bg-orange-300 hover:text-white hover:font-bold"
+        href="dashboard.html"
+        >Dashboard</a
+      >
     </nav>
 
-
-
-
     <main class="flex-grow container mx-auto p-4">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Dashboard de Jogos Cadastrados</h1>
-        <div id="statusMessage" class="text-center mt-4 mb-4 text-sm font-semibold"></div>
+      <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+        Dashboard de Jogos Cadastrados
+      </h1>
+      <div
+        id="statusMessage"
+        class="text-center mt-4 mb-4 text-sm font-semibold"
+      ></div>
 
-        <div id="gamesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Os jogos serão carregados aqui -->
-            <p class="text-center text-gray-600 col-span-full" id="loadingMessage">Carregando jogos...</p>
-        </div>
+      <div
+        id="gamesList"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <p class="text-center text-gray-600 col-span-full" id="loadingMessage">
+          Carregando jogos...
+        </p>
+      </div>
     </main>
 
-    <footer class="bg-orange-500 w-full h-24 items-center justify-center flex text-center mt-auto">
-        <div class="text-center text-sm">
-            <p class="text-white ">&copy; 2025 CheckPoint Blog. Todos os direitos reservados - Desenvolvido por <a
-                    class="hover:text-gray-700 hover:underline"
-                    href="https://joaomarcello.vercel.app/">Joaomarcello.dev</a></p>
-        </div>
+    <footer
+      class="bg-orange-500 w-full h-24 items-center justify-center flex text-center mt-auto"
+    >
+      <div class="text-center text-sm">
+        <p class="text-white">
+          &copy; 2025 CheckPoint Blog. Todos os direitos reservados -
+          Desenvolvido por
+          <a
+            class="hover:text-gray-700 hover:underline"
+            href="https://joaomarcello.vercel.app/"
+            >Joaomarcello.dev</a
+          >
+        </p>
+      </div>
     </footer>
 
-    <!-- Modal para Edição de Jogo -->
     <div id="editGameModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" id="closeModalButton">&times;</span>
-            <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Editar Jogo</h2>
-            <form id="editGameForm" class="space-y-4">
-                <input type="hidden" id="editGameId">
-                <div>
-                    <label for="editTitle" class="block text-gray-700 text-sm font-bold mb-2">Título do Jogo:</label>
-                    <input type="text" id="editTitle" name="title" required
-                        class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500">
-                </div>
+      <div class="modal-content">
+        <span class="close-button" id="closeModalButton">&times;</span>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+          Editar Jogo
+        </h2>
+        <form id="editGameForm" class="space-y-4">
+          <input type="hidden" id="editGameId" />
+          <div>
+            <label
+              for="editTitle"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Título do Jogo:</label
+            >
+            <input
+              type="text"
+              id="editTitle"
+              name="title"
+              required
+              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+            />
+          </div>
 
-                <div>
-                    <label for="editSubtitle" class="block text-gray-700 text-sm font-bold mb-2">Subtítulo:</label>
-                    <input type="text" id="editSubtitle" name="subtitle"
-                        class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500">
-                </div>
+          <div>
+            <label
+              for="editSubtitle"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Subtítulo:</label
+            >
+            <input
+              type="text"
+              id="editSubtitle"
+              name="subtitle"
+              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+            />
+          </div>
 
-                <div>
-                    <label for="editImageUrl" class="block text-gray-700 text-sm font-bold mb-2">URL da Imagem:</label>
-                    <input type="url" id="editImageUrl" name="imageUrl" required
-                        class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500">
-                </div>
+          <div>
+            <label
+              for="editImageUrl"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >URL da Imagem:</label
+            >
+            <input
+              type="url"
+              id="editImageUrl"
+              name="imageUrl"
+              required
+              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+            />
+          </div>
 
-                <div>
-                    <label for="editDescription" class="block text-gray-700 text-sm font-bold mb-2">Descrição:</label>
-                    <textarea id="editDescription" name="description" rows="6" required
-                        class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"></textarea>
-                </div>
+          <div>
+            <label
+              for="editDescription"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Descrição:</label
+            >
+            <textarea
+              id="editDescription"
+              name="description"
+              rows="6"
+              required
+              class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+            ></textarea>
+          </div>
 
-                <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Onde exibir o jogo?</label>
-                    <div class="mt-2 space-y-2">
-                        <label class="inline-flex items-center">
-                            <input type="radio" class="form-radio text-orange-600 rounded-full" name="editPlacement"
-                                value="index">
-                            <span class="ml-2 text-gray-700">Página Inicial (index.html)</span>
-                        </label>
-                        <label class="inline-flex items-center ml-4">
-                            <input type="radio" class="form-radio text-orange-600 rounded-full" name="editPlacement"
-                                value="maisjogados">
-                            <span class="ml-2 text-gray-700">Página Mais Jogados (maisjogados.html)</span>
-                        </label>
-                        <label class="inline-flex items-center ml-4">
-                            <input type="radio" class="form-radio text-orange-600 rounded-full" name="editPlacement"
-                                value="outras_indicacoes">
-                            <span class="ml-2 text-gray-700">Seção "Outras Indicações" (index.html)</span>
-                        </label>
-                    </div>
-                </div>
-
-                <button type="submit"
-                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline w-full transition duration-300 ease-in-out transform hover:scale-105">
-                    Salvar Alterações
-                </button>
-                <div id="editStatusMessage" class="text-center mt-4 text-sm font-semibold"></div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal de Confirmação de Exclusão -->
-    <div id="confirmDeleteModal" class="modal">
-        <div class="modal-content max-w-sm">
-            <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">Confirmar Exclusão</h2>
-            <p class="text-gray-700 mb-6 text-center">Tem certeza que deseja excluir este jogo?</p>
-            <div class="flex justify-center space-x-4">
-                <button id="confirmDeleteButton"
-                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105">
-                    Excluir
-                </button>
-                <button id="cancelDeleteButton"
-                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105">
-                    Cancelar
-                </button>
+          <div id="sectionFields" class="space-y-4 hidden">
+            <div>
+              <label
+                for="editSectionTitle"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Título da Seção (Mais Jogados):</label
+              >
+              <input
+                type="text"
+                id="editSectionTitle"
+                name="sectionTitle"
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+              />
             </div>
-        </div>
+            <div>
+              <label
+                for="editSectionYear"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Ano da Seção (Mais Jogados):</label
+              >
+              <input
+                type="number"
+                id="editSectionYear"
+                name="sectionYear"
+                class="shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-orange-500"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2"
+              >Onde exibir o jogo?</label
+            >
+            <div class="mt-2 space-y-2">
+              <label class="inline-flex items-center">
+                <input
+                  type="radio"
+                  class="form-radio text-orange-600 rounded-full"
+                  name="editPlacement"
+                  value="index"
+                />
+                <span class="ml-2 text-gray-700"
+                  >Página Inicial</span
+                >
+              </label>
+              <label class="inline-flex items-center ml-4">
+                <input
+                  type="radio"
+                  class="form-radio text-orange-600 rounded-full"
+                  name="editPlacement"
+                  value="maisjogados"
+                />
+                <span class="ml-2 text-gray-700"
+                  >Mais Jogados</span
+                >
+              </label>
+              <label class="inline-flex items-center ml-4">
+                <input
+                  type="radio"
+                  class="form-radio text-orange-600 rounded-full"
+                  name="editPlacement"
+                  value="outras_indicacoes"
+                />
+                <span class="ml-2 text-gray-700"
+                  >Outras Indicações</span
+                >
+              </label>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline w-full transition duration-300 ease-in-out transform "
+          >
+            Salvar Alterações
+          </button>
+          <div
+            id="editStatusMessage"
+            class="text-center mt-4 text-sm font-semibold"
+          ></div>
+        </form>
+      </div>
     </div>
 
+    <div id="confirmDeleteModal" class="modal">
+      <div class="modal-content max-w-sm">
+        <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">
+          Confirmar Exclusão
+        </h2>
+        <p class="text-gray-700 mb-6 text-center">
+          Tem certeza que deseja excluir este jogo?
+        </p>
+        <div class="flex justify-center space-x-4">
+          <button
+            id="confirmDeleteButton"
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105"
+          >
+            Excluir
+          </button>
+          <button
+            id="cancelDeleteButton"
+            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105"
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
 
     <script type="module">
-        // Importa as funções necessárias do Firebase SDK
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+      // Importa as funções necessárias do Firebase SDK
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+      import {
+        getAuth,
+        signInAnonymously,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js"; // Removido signInWithCustomToken
+      import {
+        getFirestore,
+        collection,
+        onSnapshot,
+        doc,
+        updateDoc,
+        deleteDoc,
+        getDoc,
+      } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"; // Adicionado getDoc
 
-        // Variáveis globais para o Firebase (preenchidas pelo ambiente Canvas)
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+      // SUAS CREDENCIAIS DO FIREBASE - SUBSTITUA 'SUA_CHAVE_REAL_DO_FIREBASE_AQUI' PELA SUA CHAVE VERDADEIRA!
+      const firebaseConfig = {
+        apiKey: "AIzaSyBKt0S9F5DeZxZOPnLMx3x8VQJBx9Zbn-E", // <<< SUBSTITUA AQUI!
+        authDomain: "checkpoint-blog-781dd.firebaseapp.com",
+        projectId: "checkpoint-blog-781dd",
+        storageBucket: "checkpoint-blog-781dd.firebasestorage.app",
+        messagingSenderId: "719291913960",
+        appId: "1:719291913960:web:a222f2ad700d773c359b5d",
+      };
 
-        let app;
-        let db;
-        let auth;
-        let userId;
-        let gamesCollectionRef; // Referência para a coleção de jogos
+      let app;
+      let db;
+      let auth;
+      let appId = firebaseConfig.appId; // Usa o appId das suas credenciais
+      let gamesCollectionRef; // Referência para a coleção de jogos
 
-        // Elementos do DOM
-        const gamesList = document.getElementById('gamesList');
-        const statusMessage = document.getElementById('statusMessage');
-        const loadingMessage = document.getElementById('loadingMessage');
+      // Elementos do DOM
+      const gamesList = document.getElementById("gamesList");
+      const statusMessage = document.getElementById("statusMessage");
+      const loadingMessage = document.getElementById("loadingMessage");
 
-        // Elementos do Modal de Edição
-        const editGameModal = document.getElementById('editGameModal');
-        const closeModalButton = document.getElementById('closeModalButton');
-        const editGameForm = document.getElementById('editGameForm');
-        const editGameId = document.getElementById('editGameId');
-        const editTitle = document.getElementById('editTitle');
-        const editSubtitle = document.getElementById('editSubtitle');
-        const editImageUrl = document.getElementById('editImageUrl');
-        const editDescription = document.getElementById('editDescription');
-        const editStatusMessage = document.getElementById('editStatusMessage');
+      // Elementos do Modal de Edição
+      const editGameModal = document.getElementById("editGameModal");
+      const closeModalButton = document.getElementById("closeModalButton");
+      const editGameForm = document.getElementById("editGameForm");
+      const editGameId = document.getElementById("editGameId");
+      const editTitle = document.getElementById("editTitle");
+      const editSubtitle = document.getElementById("editSubtitle");
+      const editImageUrl = document.getElementById("editImageUrl");
+      const editDescription = document.getElementById("editDescription");
+      const editSectionTitle = document.getElementById("editSectionTitle"); // Novo campo
+      const editSectionYear = document.getElementById("editSectionYear"); // Novo campo
+      const sectionFields = document.getElementById("sectionFields"); // Container dos novos campos
+      const editStatusMessage = document.getElementById("editStatusMessage");
 
-        // Elementos do Modal de Confirmação de Exclusão
-        const confirmDeleteModal = document.getElementById('confirmDeleteModal');
-        const confirmDeleteButton = document.getElementById('confirmDeleteButton');
-        const cancelDeleteButton = document.getElementById('cancelDeleteButton');
-        let gameToDeleteId = null; // Variável para armazenar o ID do jogo a ser excluído
+      // Elementos do Modal de Confirmação de Exclusão
+      const confirmDeleteModal = document.getElementById("confirmDeleteModal");
+      const confirmDeleteButton = document.getElementById(
+        "confirmDeleteButton"
+      );
+      const cancelDeleteButton = document.getElementById("cancelDeleteButton");
+      let gameToDeleteId = null; // Variável para armazenar o ID do jogo a ser excluído
 
-        /**
-         * Inicializa o Firebase e autentica o usuário.
-         * Tenta autenticar com um token personalizado se disponível,
-         * caso contrário, autentica anonimamente.
-         */
-        async function initializeFirebase() {
-            try {
-                app = initializeApp(firebaseConfig); // Inicializa o aplicativo Firebase
-                db = getFirestore(app); // Obtém a instância do Firestore
-                auth = getAuth(app); // Obtém a instância de autenticação
+      /**
+       * Inicializa o Firebase e autentica o usuário.
+       * Tenta autenticar com um token personalizado se disponível,
+       * caso contrário, autentica anonimamente.
+       */
+      async function initializeFirebase() {
+        try {
+          app = initializeApp(firebaseConfig); // Inicializa o aplicativo Firebase
+          db = getFirestore(app); // Obtém a instância do Firestore
+          auth = getAuth(app); // Obtém a instância de autenticação
 
-                // Tenta fazer login com o token personalizado fornecido pelo ambiente
-                if (typeof __initial_auth_token !== 'undefined') {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    // Se não houver token, faz login anonimamente
-                    await signInAnonymously(auth);
-                }
-                // Define o ID do usuário, usando o UID autenticado ou um UUID aleatório
-                userId = auth.currentUser?.uid || crypto.randomUUID();
-                console.log("Firebase inicializado e usuário autenticado:", userId);
+          // Autentica anonimamente. Removido o login com custom token que parecia ser de um ambiente específico.
+          await signInAnonymously(auth);
+          console.log(
+            "Firebase inicializado e usuário autenticado anonimamente."
+          );
 
-                // Define a referência da coleção após a inicialização do Firebase
-                gamesCollectionRef = collection(db, `artifacts/${appId}/public/data/games`);
-                listenForGames(); // Começa a ouvir por mudanças nos jogos
-            } catch (error) {
-                console.error("Erro ao inicializar o Firebase ou autenticar:", error);
-                statusMessage.textContent = 'Erro ao inicializar o Firebase. Verifique o console.';
-                statusMessage.classList.add('text-red-500');
-            }
+          // Define a referência da coleção após a inicialização do Firebase
+          gamesCollectionRef = collection(
+            db,
+            `artifacts/${appId}/public/data/games`
+          );
+          listenForGames(); // Começa a ouvir por mudanças nos jogos
+        } catch (error) {
+          console.error("Erro ao inicializar o Firebase ou autenticar:", error);
+          statusMessage.textContent =
+            "Erro ao inicializar o Firebase. Verifique o console.";
+          statusMessage.classList.add("text-red-500");
+        }
+      }
+
+      /**
+       * Ouve em tempo real as mudanças na coleção de jogos e atualiza a UI.
+       */
+      function listenForGames() {
+        if (!gamesCollectionRef) {
+          console.error("Referência da coleção de jogos não definida.");
+          return;
         }
 
-        /**
-         * Ouve em tempo real as mudanças na coleção de jogos e atualiza a UI.
-         */
-        function listenForGames() {
-            if (!gamesCollectionRef) {
-                console.error("Referência da coleção de jogos não definida.");
-                return;
+        onSnapshot(
+          gamesCollectionRef,
+          (snapshot) => {
+            gamesList.innerHTML = ""; // Limpa a lista atual
+            loadingMessage.style.display = "none"; // Esconde a mensagem de carregamento
+
+            if (snapshot.empty) {
+              gamesList.innerHTML =
+                '<p class="text-center text-gray-600 col-span-full">Nenhum jogo cadastrado ainda.</p>';
+              return;
             }
 
-            onSnapshot(gamesCollectionRef, (snapshot) => {
-                gamesList.innerHTML = ''; // Limpa a lista atual
-                loadingMessage.style.display = 'none'; // Esconde a mensagem de carregamento
-
-                if (snapshot.empty) {
-                    gamesList.innerHTML = '<p class="text-center text-gray-600 col-span-full">Nenhum jogo cadastrado ainda.</p>';
-                    return;
-                }
-
-                snapshot.forEach((doc) => {
-                    const game = doc.data();
-                    const gameId = doc.id;
-                    const gameCard = `
+            snapshot.forEach((doc) => {
+              const game = doc.data();
+              const gameId = doc.id;
+              const gameCard = `
                         <div class="bg-white p-6 rounded-lg shadow-md flex flex-col justify-between">
                             <div>
-                                <img src="${game.imageUrl}" alt="${game.title}" class="w-full h-48 object-cover rounded-md mb-4 onerror="this.onerror=null;this.src='https://placehold.co/400x200/cccccc/333333?text=Imagem+N%C3%A3o+Dispon%C3%ADvel';"">
-                                <h3 class="text-xl font-semibold text-gray-900 mb-2">${game.title}</h3>
-                                <p class="text-gray-600 text-sm mb-2">${game.subtitle || 'Sem subtítulo'}</p>
-                                <p class="text-gray-700 text-sm mb-4 line-clamp-3">${game.description}</p>
-                                <p class="text-gray-500 text-xs">Exibição: <span class="font-medium">${formatPlacement(game.placement)}</span></p>
+                                <img src="${
+                                  game.imageUrl ||
+                                  "https://via.placeholder.com/400x200?text=Sem+Imagem"
+                                }" 
+                                     alt="${game.title || "Imagem do jogo"}" 
+                                     class="w-full h-48 object-cover rounded-md mb-4" 
+                                     onerror="this.onerror=null;this.src='https://via.placeholder.com/400x200?text=Sem+Imagem';">
+                                <h3 class="text-xl font-semibold text-gray-900 mb-2">${
+                                  game.title || "Sem Título"
+                                }</h3>
+                                <p class="text-gray-600 text-sm mb-2">${
+                                  game.subtitle || "Sem subtítulo"
+                                }</p>
+                                <p class="text-gray-700 text-sm mb-4 description-clamp">${
+                                  game.description || "Sem descrição."
+                                }</p>
+                                <p class="text-gray-500 text-xs">Exibição: <span class="font-medium">${formatPlacement(
+                                  game.placement
+                                )}</span></p>
+                                ${
+                                  game.sectionTitle
+                                    ? `<p class="text-gray-500 text-xs">Seção: <span class="font-medium">${
+                                        game.sectionTitle
+                                      } (${
+                                        game.sectionYear || "N/A"
+                                      })</span></p>`
+                                    : ""
+                                }
                             </div>
                             <div class="mt-4 flex justify-end space-x-2">
                                 <button data-id="${gameId}"
-                                    class="edit-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md text-sm transition duration-300 ease-in-out transform hover:scale-105">
+                                    class="edit-button bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-md text-sm transition duration-300 ease-in-out transform hover:scale-105">
                                     Editar
                                 </button>
                                 <button data-id="${gameId}"
@@ -288,166 +479,220 @@
                             </div>
                         </div>
                     `;
-                    gamesList.insertAdjacentHTML('beforeend', gameCard);
-                });
-
-                // Adiciona event listeners aos botões de editar e excluir
-                document.querySelectorAll('.edit-button').forEach(button => {
-                    button.addEventListener('click', (e) => openEditModal(e.target.dataset.id));
-                });
-                document.querySelectorAll('.delete-button').forEach(button => {
-                    button.addEventListener('click', (e) => openDeleteConfirmModal(e.target.dataset.id));
-                });
-            }, (error) => {
-                console.error("Erro ao ouvir a coleção de jogos: ", error);
-                statusMessage.textContent = 'Erro ao carregar os jogos. Verifique o console.';
-                statusMessage.classList.add('text-red-500');
-                loadingMessage.style.display = 'none';
+              gamesList.insertAdjacentHTML("beforeend", gameCard);
             });
+
+            // Adiciona event listeners aos botões de editar e excluir
+            document.querySelectorAll(".edit-button").forEach((button) => {
+              button.addEventListener("click", (e) =>
+                openEditModal(e.target.dataset.id)
+              );
+            });
+            document.querySelectorAll(".delete-button").forEach((button) => {
+              button.addEventListener("click", (e) =>
+                openDeleteConfirmModal(e.target.dataset.id)
+              );
+            });
+          },
+          (error) => {
+            console.error("Erro ao ouvir a coleção de jogos: ", error);
+            statusMessage.textContent =
+              "Erro ao carregar os jogos. Verifique o console.";
+            statusMessage.classList.add("text-red-500");
+            loadingMessage.style.display = "none";
+          }
+        );
+      }
+
+      /**
+       * Formata o valor de 'placement' para exibição amigável.
+       * @param {string} placement - O valor do campo 'placement'.
+       * @returns {string} O texto formatado.
+       */
+      function formatPlacement(placement) {
+        switch (placement) {
+          case "index":
+            return "Página Inicial";
+          case "maisjogados_card": // Ajustado para corresponder ao cadastro.html
+            return "Página Mais Jogados";
+          case "outras_indicacoes":
+            return "Outras Indicações (Página Inicial)";
+          default:
+            return "Desconhecido";
         }
+      }
 
-        /**
-         * Formata o valor de 'placement' para exibição amigável.
-         * @param {string} placement - O valor do campo 'placement'.
-         * @returns {string} O texto formatado.
-         */
-        function formatPlacement(placement) {
-            switch (placement) {
-                case 'index':
-                    return 'Página Inicial';
-                case 'maisjogados':
-                    return 'Página Mais Jogados';
-                case 'outras_indicacoes':
-                    return 'Outras Indicações (Página Inicial)';
-                default:
-                    return 'Desconhecido';
-            }
-        }
+      /**
+       * Abre o modal de edição e preenche com os dados do jogo.
+       * @param {string} id - O ID do documento do jogo.
+       */
+      async function openEditModal(id) {
+        try {
+          const gameDoc = await getDoc(doc(db, gamesCollectionRef.path, id));
+          if (gameDoc.exists()) {
+            const gameData = gameDoc.data();
+            editGameId.value = id;
+            editTitle.value = gameData.title || "";
+            editSubtitle.value = gameData.subtitle || "";
+            editImageUrl.value = gameData.imageUrl || "";
+            editDescription.value = gameData.description || "";
 
-        /**
-         * Abre o modal de edição e preenche com os dados do jogo.
-         * @param {string} id - O ID do documento do jogo.
-         */
-        async function openEditModal(id) {
-            try {
-                const gameDoc = await getDoc(doc(db, gamesCollectionRef.path, id));
-                if (gameDoc.exists()) {
-                    const gameData = gameDoc.data();
-                    editGameId.value = id;
-                    editTitle.value = gameData.title;
-                    editSubtitle.value = gameData.subtitle || '';
-                    editImageUrl.value = gameData.imageUrl;
-                    editDescription.value = gameData.description;
-
-                    // Define o radio button de placement correto
-                    document.querySelectorAll('input[name="editPlacement"]').forEach(radio => {
-                        if (radio.value === gameData.placement) {
-                            radio.checked = true;
-                        }
-                    });
-
-                    editStatusMessage.textContent = ''; // Limpa mensagens de status anteriores
-                    editGameModal.style.display = 'flex'; // Exibe o modal
-                } else {
-                    statusMessage.textContent = 'Jogo não encontrado para edição.';
-                    statusMessage.classList.add('text-red-500');
+            // Define o radio button de placement correto
+            let currentPlacement = gameData.placement || "index"; // Padrão se não houver
+            document
+              .querySelectorAll('input[name="editPlacement"]')
+              .forEach((radio) => {
+                if (radio.value === currentPlacement) {
+                  radio.checked = true;
                 }
-            } catch (error) {
-                console.error("Erro ao abrir modal de edição:", error);
-                statusMessage.textContent = 'Erro ao carregar dados do jogo para edição.';
-                statusMessage.classList.add('text-red-500');
+              });
+
+            // Preenche e exibe/oculta campos de seção
+            if (currentPlacement === "maisjogados_card") {
+              // Mudado para maisjogados_card
+              sectionFields.classList.remove("hidden");
+              editSectionTitle.value = gameData.sectionTitle || "";
+              editSectionYear.value = gameData.sectionYear || "";
+            } else {
+              sectionFields.classList.add("hidden");
+              editSectionTitle.value = ""; // Limpa os campos quando oculto
+              editSectionYear.value = "";
             }
+
+            editStatusMessage.textContent = ""; // Limpa mensagens de status anteriores
+            editGameModal.style.display = "flex"; // Exibe o modal
+          } else {
+            statusMessage.textContent = "Jogo não encontrado para edição.";
+            statusMessage.classList.add("text-red-500");
+          }
+        } catch (error) {
+          console.error("Erro ao abrir modal de edição:", error);
+          statusMessage.textContent =
+            "Erro ao carregar dados do jogo para edição.";
+          statusMessage.classList.add("text-red-500");
+        }
+      }
+
+      /**
+       * Fecha o modal de edição.
+       */
+      function closeEditModal() {
+        editGameModal.style.display = "none";
+      }
+
+      /**
+       * Abre o modal de confirmação de exclusão.
+       * @param {string} id - O ID do documento do jogo a ser excluído.
+       */
+      function openDeleteConfirmModal(id) {
+        gameToDeleteId = id;
+        confirmDeleteModal.style.display = "flex";
+      }
+
+      /**
+       * Fecha o modal de confirmação de exclusão.
+       */
+      function closeDeleteConfirmModal() {
+        gameToDeleteId = null;
+        confirmDeleteModal.style.display = "none";
+      }
+
+      // Event Listeners para os modais
+      closeModalButton.addEventListener("click", closeEditModal);
+      window.addEventListener("click", (event) => {
+        if (event.target == editGameModal) {
+          closeEditModal();
+        }
+        if (event.target == confirmDeleteModal) {
+          closeDeleteConfirmModal();
+        }
+      });
+
+      // Listener para o formulário de edição
+      editGameForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const id = editGameId.value;
+        const currentPlacement = document.querySelector(
+          'input[name="editPlacement"]:checked'
+        ).value;
+
+        const updatedData = {
+          title: editTitle.value,
+          subtitle: editSubtitle.value,
+          imageUrl: editImageUrl.value,
+          description: editDescription.value,
+          placement: currentPlacement,
+          // createdAt e updatedAt não precisam ser enviados diretamente aqui, podem ser gerados pelo servidor ou Firebase
+        };
+
+        // Adiciona campos de seção apenas se o placement for 'maisjogados_card'
+        if (currentPlacement === "maisjogados_card") {
+          updatedData.sectionTitle = editSectionTitle.value;
+          updatedData.sectionYear = parseInt(editSectionYear.value); // Garante que seja um número
+        } else {
+          // Remove os campos de seção se o placement não for 'maisjogados_card'
+          // Isso é importante para limpar dados antigos se um card mudar de categoria
+          updatedData.sectionTitle = null; // ou Firebase.firestore.FieldValue.delete() se preferir remover o campo
+          updatedData.sectionYear = null;
         }
 
-        /**
-         * Fecha o modal de edição.
-         */
-        function closeEditModal() {
-            editGameModal.style.display = 'none';
-        }
+        editStatusMessage.textContent = "Salvando...";
+        editStatusMessage.classList.remove("text-red-500", "text-green-500");
+        editStatusMessage.classList.add("text-blue-500");
 
-        /**
-         * Abre o modal de confirmação de exclusão.
-         * @param {string} id - O ID do documento do jogo a ser excluído.
-         */
-        function openDeleteConfirmModal(id) {
-            gameToDeleteId = id;
-            confirmDeleteModal.style.display = 'flex';
+        try {
+          await updateDoc(doc(db, gamesCollectionRef.path, id), updatedData);
+          editStatusMessage.textContent = "Jogo atualizado com sucesso!";
+          editStatusMessage.classList.remove("text-blue-500");
+          editStatusMessage.classList.add("text-green-500");
+          setTimeout(closeEditModal, 1500); // Fecha o modal após um pequeno atraso
+        } catch (error) {
+          console.error("Erro ao atualizar documento: ", error);
+          editStatusMessage.textContent =
+            "Erro ao atualizar o jogo: " + error.message;
+          editStatusMessage.classList.remove("text-blue-500", "text-green-500");
+          editStatusMessage.classList.add("text-red-500");
         }
+      });
 
-        /**
-         * Fecha o modal de confirmação de exclusão.
-         */
-        function closeDeleteConfirmModal() {
-            gameToDeleteId = null;
-            confirmDeleteModal.style.display = 'none';
-        }
-
-        // Event Listeners para os modais
-        closeModalButton.addEventListener('click', closeEditModal);
-        window.addEventListener('click', (event) => {
-            if (event.target == editGameModal) {
-                closeEditModal();
+      // Listener para alternar visibilidade dos campos de seção
+      document
+        .querySelectorAll('input[name="editPlacement"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", () => {
+            if (radio.value === "maisjogados_card") {
+              // Mudado para maisjogados_card
+              sectionFields.classList.remove("hidden");
+            } else {
+              sectionFields.classList.add("hidden");
             }
-            if (event.target == confirmDeleteModal) {
-                closeDeleteConfirmModal();
-            }
+          });
         });
 
-        // Listener para o formulário de edição
-        editGameForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const id = editGameId.value;
-            const updatedData = {
-                title: editTitle.value,
-                subtitle: editSubtitle.value,
-                imageUrl: editImageUrl.value,
-                description: editDescription.value,
-                placement: document.querySelector('input[name="editPlacement"]:checked').value,
-            };
+      // Listeners para os botões do modal de confirmação de exclusão
+      confirmDeleteButton.addEventListener("click", async () => {
+        if (gameToDeleteId) {
+          try {
+            await deleteDoc(doc(db, gamesCollectionRef.path, gameToDeleteId));
+            statusMessage.textContent = "Jogo excluído com sucesso!";
+            statusMessage.classList.remove("text-red-500", "text-blue-500");
+            statusMessage.classList.add("text-green-500");
+            closeDeleteConfirmModal();
+          } catch (error) {
+            console.error("Erro ao excluir documento: ", error);
+            statusMessage.textContent =
+              "Erro ao excluir o jogo: " + error.message;
+            statusMessage.classList.remove("text-green-500", "text-blue-500");
+            statusMessage.classList.add("text-red-500");
+            closeDeleteConfirmModal();
+          }
+        }
+      });
 
-            editStatusMessage.textContent = 'Salvando...';
-            editStatusMessage.classList.remove('text-red-500', 'text-green-500');
-            editStatusMessage.classList.add('text-blue-500');
+      cancelDeleteButton.addEventListener("click", closeDeleteConfirmModal);
 
-            try {
-                await updateDoc(doc(db, gamesCollectionRef.path, id), updatedData);
-                editStatusMessage.textContent = 'Jogo atualizado com sucesso!';
-                editStatusMessage.classList.remove('text-blue-500');
-                editStatusMessage.classList.add('text-green-500');
-                setTimeout(closeEditModal, 1500); // Fecha o modal após um pequeno atraso
-            } catch (error) {
-                console.error("Erro ao atualizar documento: ", error);
-                editStatusMessage.textContent = 'Erro ao atualizar o jogo: ' + error.message;
-                editStatusMessage.classList.remove('text-blue-500', 'text-green-500');
-                editStatusMessage.classList.add('text-red-500');
-            }
-        });
-
-        // Listeners para os botões do modal de confirmação de exclusão
-        confirmDeleteButton.addEventListener('click', async () => {
-            if (gameToDeleteId) {
-                try {
-                    await deleteDoc(doc(db, gamesCollectionRef.path, gameToDeleteId));
-                    statusMessage.textContent = 'Jogo excluído com sucesso!';
-                    statusMessage.classList.remove('text-red-500', 'text-blue-500');
-                    statusMessage.classList.add('text-green-500');
-                    closeDeleteConfirmModal();
-                } catch (error) {
-                    console.error("Erro ao excluir documento: ", error);
-                    statusMessage.textContent = 'Erro ao excluir o jogo: ' + error.message;
-                    statusMessage.classList.remove('text-green-500', 'text-blue-500');
-                    statusMessage.classList.add('text-red-500');
-                    closeDeleteConfirmModal();
-                }
-            }
-        });
-
-        cancelDeleteButton.addEventListener('click', closeDeleteConfirmModal);
-
-        // Chama a função de inicialização do Firebase quando o DOM estiver completamente carregado
-        document.addEventListener('DOMContentLoaded', initializeFirebase);
+      // Chama a função de inicialização do Firebase quando o DOM estiver completamente carregado
+      document.addEventListener("DOMContentLoaded", initializeFirebase);
     </script>
-</body>
-
+  </body>
 </html>
